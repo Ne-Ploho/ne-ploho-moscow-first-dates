@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { YMaps, Map as YMap, ZoomControl, Placemark } from '@alexkuz/react-yandex-maps';
+import { YMaps, Map as YMap, ZoomControl, Placemark, withYMaps } from '@alexkuz/react-yandex-maps';
 import styled from 'styled-components';
 
 const MAP_WIDTH = 6789;
@@ -17,23 +17,29 @@ function scaleLocation(loc) {
   ]
 }
 
-console.log(LOCATION_FACTOR)
+const OnMapLoad = withYMaps(({ onMapLoad, ymaps }) => {
+  React.useEffect(() => {
+    if (ymaps) {
+      onMapLoad(ymaps);
+    }
+  }, [ymaps]);
+
+  return null;
+});
 
 const DatesMap = ({ stories }) => {
   const [ymaps, setYmaps] = React.useState(null);
   const [map, setMap] = React.useState(null);
   const [mapType, setMapType] = React.useState(null);
 
-  console.log(ymaps);
-  console.log(map);
-
-  const bounds = [
-    [MAP_HEIGHT / 2 - WORLD_SIZE, -MAP_WIDTH / 2],
-    [MAP_HEIGHT / 2, WORLD_SIZE - MAP_WIDTH / 2]
-  ];
-
   const options = React.useMemo(
-    () => ({
+    () => {
+      const bounds = [
+        [MAP_HEIGHT / 2 - WORLD_SIZE, -MAP_WIDTH / 2],
+        [MAP_HEIGHT / 2, WORLD_SIZE - MAP_WIDTH / 2]
+      ];
+
+      return {
       suppressMapOpenBlock: true,
       avoidFractionalZoom: false,
       projection:
@@ -44,7 +50,8 @@ const DatesMap = ({ stories }) => {
         [-MAP_HEIGHT / 2, -MAP_WIDTH / 2],
         [MAP_HEIGHT / 2, MAP_WIDTH / 2]
       ]
-    }),
+    }
+  },
     [ymaps]
   );
 
@@ -79,13 +86,13 @@ const DatesMap = ({ stories }) => {
       }}
       hash="mfd"
     >
-      <StyledYMap
-        onLoad={setYmaps}
+      <OnMapLoad onMapLoad={setYmaps} />
+      {mapType && <StyledYMap
         instanceRef={setMap}
         state={{
           center: CENTER,
           zoom: 6,
-          type: mapType ? 'datesMap' : undefined,
+          type: 'datesMap',
           controls: []
         }}
         options={options}
@@ -102,7 +109,7 @@ const DatesMap = ({ stories }) => {
             />
           );
         })}
-      </StyledYMap>
+      </StyledYMap>}
     </YMaps>
   );
 };
