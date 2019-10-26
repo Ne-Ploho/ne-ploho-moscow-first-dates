@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { YMaps, Map as YMap, ZoomControl, Placemark } from 'react-yandex-maps';
+import { YMaps, Map as YMap, ZoomControl, Placemark } from '@alexkuz/react-yandex-maps';
 import styled from 'styled-components';
 
 const MAP_WIDTH = 6789;
@@ -8,7 +8,7 @@ const WORLD_SIZE = Math.pow(2, 10) * 256;
 
 const CENTER = [55.749, 37.616];
 
-const LOCATION_FACTOR = 50000;
+const LOCATION_FACTOR = 32000;
 
 function scaleLocation(loc) {
   return [
@@ -77,6 +77,7 @@ const DatesMap = ({ stories }) => {
         load:
           'Map,Placemark,control.ZoomControl,projection.Cartesian,MapType,Layer,layer.storage,mapType.storage'
       }}
+      hash="mfd"
     >
       <StyledYMap
         onLoad={setYmaps}

@@ -2,6 +2,15 @@
 # yarn lockfile v1
 
 
+"@alexkuz/react-yandex-maps@^4.0.1":
+  version "4.0.2"
+  resolved "https://registry.yarnpkg.com/@alexkuz/react-yandex-maps/-/react-yandex-maps-4.0.2.tgz#1507fd880c158c8cecb8a9daf587f7124798fcab"
+  integrity sha512-WfaZR1bZOh0KWGS/yI7eJzwXkB3bPDklZiXDZ4VDOLXh3DmdDyKciwozM4a7haUVBCwDq+aDkjYyaP3nADp3ug==
+  dependencies:
+    create-react-context "^0.2.3"
+    prop-types "^15.7.2"
+    react-display-name "^0.2.4"
+
 "@babel/code-frame@^7.0.0":
   version "7.0.0"
   resolved "https://registry.yarnpkg.com/@babel/code-frame/-/code-frame-7.0.0.tgz#06e2ab19bdb535385559aabb5ba59729482800f8"
@@ -10141,15 +10150,6 @@ react-side-effect@^1.1.0:
   dependencies:
     exenv "^1.2.1"
     shallowequal "^1.0.1"
-
-react-yandex-maps@^4.0.1:
-  version "4.0.1"
-  resolved "https://registry.yarnpkg.com/react-yandex-maps/-/react-yandex-maps-4.0.1.tgz#4e779f6d2143a8032dd1ae185536bc9fd5cb6573"
-  integrity sha512-hR88sKwzgkedyfBJEnWx7AvbznhbuXG8L8z269SVhbZrDT6+RybO0vPTwUBVKu2ExFt9Q0UPVjbUu/GDyDpB2A==
-  dependencies:
-    create-react-context "^0.2.3"
-    prop-types "^15.7.2"
-    react-display-name "^0.2.4"
 
 react@^16.8.4, react@^16.8.6:
   version "16.8.6"
