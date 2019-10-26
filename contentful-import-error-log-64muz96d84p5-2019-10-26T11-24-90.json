@@ -1,0 +1,14 @@
+[
+  {
+    "ts": "2019-10-26T08:24:51.928Z",
+    "level": "error",
+    "error": {
+      "originalError": {
+      },
+      "stacktrace": [
+        "Error: Error: Please make sure the destination space have the same default locale as the source Default locale for source space : en-US Default locale for destination space: ru-RU ",
+        "/Users/alexanderkuznetsov/git/ne-ploho-moscow-first-dates/node_modules/contentful-batch-libs/dist/listr.js:24:27"
+      ]
+    }
+  }
+]

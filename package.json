@@ -1,10 +1,10 @@
 {
-  "name": "gatsby-contentful-starter",
-  "description": "Starter Contentful Gatsby Blog",
+  "name": "ne-ploho-moscow-first-dates",
+  "description": "Moscow First Dates",
   "version": "1.0.0",
-  "author": "Stefan Judis <stefanjudis@gmail.com>",
+  "author": "Alexander Kuznetsov <alexkuz@gmail.com>",
   "bugs": {
-    "url": "https://github.com/contentful-userland/gatsby-contentful-starter/issues"
+    "url": "https://github.com/alexkuz/ne-ploho-moscow-first-dates/issues"
   },
   "dependencies": {
     "gatsby-image": "^2.0.38",
@@ -17,7 +17,9 @@
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-helmet": "^5.2.0",
-    "sharp": "^0.22.0"
+    "react-yandex-maps": "^4.0.1",
+    "sharp": "^0.22.0",
+    "styled-components": "^4.4.0"
   },
   "devDependencies": {
     "babel-eslint": "^10.0.1",
@@ -33,7 +35,7 @@
     "rimraf": "^2.6.3",
     "yargs-parser": "^13.0.0"
   },
-  "homepage": "https://github.com/contentful-userland/gatsby-contentful-starter#readme",
+  "homepage": "https://github.com/alexkuz/ne-ploho-moscow-first-dates#readme",
   "keywords": [
     "gatsby",
     "contentful"
@@ -42,17 +44,16 @@
   "main": "n/a",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/contentful-userland/gatsby-contentful-starter.git"
+    "url": "git+https://github.com/alexkuz/ne-ploho-moscow-first-dates.git"
   },
   "scripts": {
     "dev": "npm run develop",
     "develop": "gatsby develop",
     "lint": "eslint --ext .js,.jsx --ignore-pattern public .",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "format": "prettier --trailing-comma es5 --no-semi --single-quote --write 'src/**/*.js' 'src/**/*.md' 'bin/*.js'",
+    "format": "prettier --single-quote --write 'src/**/*.js' 'src/**/*.md' 'bin/*.js'",
     "build": "gatsby build",
     "deploy": "gatsby build --prefix-paths && gh-pages -d public",
-    "fix-semi": "eslint --quiet --ignore-pattern node_modules --ignore-pattern public --parser babel-eslint --no-eslintrc --rule '{\"semi\": [2, \"never\"], \"no-extra-semi\": [2]}' --fix *.js bin/*.js",
     "postinstall": "node ./bin/hello.js",
     "setup": "node ./bin/setup.js",
     "start": "npm run develop",
