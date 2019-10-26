@@ -1,6 +1,7 @@
 import * as React from 'react';
-import { YMaps, Map as YMap, ZoomControl, Placemark, withYMaps } from '@alexkuz/react-yandex-maps';
+import { YMaps, Map as YMap, Placemark, withYMaps } from '@alexkuz/react-yandex-maps';
 import styled from 'styled-components';
+import { navigate } from 'gatsby';
 
 const MAP_WIDTH = 6789;
 const MAP_HEIGHT = 8010;
@@ -16,6 +17,9 @@ function scaleLocation(loc) {
     (loc[1] - CENTER[1]) * LOCATION_FACTOR + CENTER[1],
   ]
 }
+
+// we need this lo load ymaps before rendering map component,
+// to avoid nasty performance issues
 
 const OnMapLoad = withYMaps(({ onMapLoad, ymaps }) => {
   React.useEffect(() => {
@@ -82,7 +86,7 @@ const DatesMap = ({ stories }) => {
       query={{
         apikey: '92659bc7-f871-4646-9da3-b90f42da0c4c',
         load:
-          'Map,Placemark,control.ZoomControl,projection.Cartesian,MapType,Layer,layer.storage,mapType.storage'
+          'Map,Placemark,projection.Cartesian,MapType,Layer,layer.storage,mapType.storage'
       }}
       hash="mfd"
     >
@@ -97,7 +101,6 @@ const DatesMap = ({ stories }) => {
         }}
         options={options}
       >
-        <ZoomControl />
         {stories.map((s, idx) => {
           return (
             <Placemark
@@ -105,6 +108,9 @@ const DatesMap = ({ stories }) => {
               geometry={scaleLocation([s.location.lat, s.location.lon])}
               properties={{
                 iconCaption: `${s.name}, ${s.age}`
+              }}
+              onClick={() => {
+                navigate(`/stories/${s.slug}`)
               }}
             />
           );
@@ -116,12 +122,9 @@ const DatesMap = ({ stories }) => {
 
 export default DatesMap;
 
-const DatesMapRoot = styled.div`
-  width: 100vw;
-  height: 100vh;
-`;
-
 const StyledYMap = styled(YMap)`
-  width: 100vw;
-  height: 100vh;
+  position: absolute;
+  width: 100%;
+  flex: 1 0 auto;
+  height: calc(100vh - 100px);
 `;

@@ -18,10 +18,11 @@ if (!spaceId || !accessToken) {
 
 module.exports = {
   siteMetadata: {
-    title: 'Gatsby Contentful starter',
+    title: 'Moscow First Dates',
   },
   pathPrefix: '/gatsby-contentful-starter',
   plugins: [
+    'gatsby-plugin-layout',
     'gatsby-transformer-remark',
     'gatsby-transformer-sharp',
     'gatsby-plugin-react-helmet',
@@ -29,6 +30,14 @@ module.exports = {
     {
       resolve: 'gatsby-source-contentful',
       options: contentfulConfig,
+    },
+    {
+      resolve: 'gatsby-plugin-web-font-loader',
+      options: {
+        google: {
+          families: ['Montserrat:400,700']
+        }
+      }
     }
   ],
 }

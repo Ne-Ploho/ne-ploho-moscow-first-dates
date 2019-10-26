@@ -7,9 +7,12 @@
     "url": "https://github.com/alexkuz/ne-ploho-moscow-first-dates/issues"
   },
   "dependencies": {
+    "@alexkuz/react-yandex-maps": "^4.0.1",
     "gatsby-image": "^2.0.38",
+    "gatsby-plugin-layout": "^1.1.13",
     "gatsby-plugin-react-helmet": "^3.0.12",
     "gatsby-plugin-sharp": "^2.0.34",
+    "gatsby-plugin-web-font-loader": "^1.0.4",
     "gatsby-source-contentful": "^2.0.48",
     "gatsby-transformer-remark": "^2.3.8",
     "gatsby-transformer-sharp": "^2.1.18",
@@ -17,7 +20,6 @@
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-helmet": "^5.2.0",
-    "@alexkuz/react-yandex-maps": "^4.0.1",
     "sharp": "^0.22.0",
     "styled-components": "^4.4.0"
   },
