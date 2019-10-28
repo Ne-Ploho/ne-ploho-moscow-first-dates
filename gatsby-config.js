@@ -39,6 +39,6 @@ module.exports = {
         }
       }
     },
-    // 'gatsby-plugin-svgr'
+    'gatsby-plugin-react-svg'
   ],
 }

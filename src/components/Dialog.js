@@ -1,6 +1,7 @@
 import * as React from 'react';
 import styled, { keyframes } from 'styled-components';
 import { navigate } from 'gatsby';
+import Cross from '../icons/cross.svg';
 
 const fadeIn = keyframes`
   from {
@@ -14,11 +15,11 @@ const fadeIn = keyframes`
 const slideIn = keyframes`
   from {
     opacity: 0;
-    transform: translateY(50px);
+    transform: scale(0.5);
   }
   to {
     opacity: 1;
-    transform: translateY(0px);
+    transform: scale(1);
   }
 `
 
@@ -27,7 +28,7 @@ const Dialog = ({ children }) => {
   <DialogRoot>
     <Back onClick={() => navigate('/')} />
     <Body>
-      <CloseButton onClick={() => navigate('/')}>X</CloseButton>
+      <CloseButton onClick={() => navigate('/')}><Cross /></CloseButton>
       <Content>
         {children}
       </Content>
@@ -68,6 +69,7 @@ const Body = styled.div`
   background: #FFF;
   border-radius: 10px;
   min-width: 400px;
+  max-width: 600px;
   min-height: 400px;
   animation: ${slideIn} 0.2s ease-out;
 `;

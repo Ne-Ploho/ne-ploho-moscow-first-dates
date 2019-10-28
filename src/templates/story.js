@@ -1,11 +1,9 @@
 import React from 'react'
+import styled from 'styled-components';
 import { graphql } from 'gatsby'
 import Helmet from 'react-helmet'
-import Img from 'gatsby-image'
 import Layout from '../components/layout'
 import Dialog from '../components/Dialog';
-
-import heroStyles from '../components/hero.module.css'
 
 class BlogPostTemplate extends React.Component {
   render() {
@@ -19,7 +17,7 @@ class BlogPostTemplate extends React.Component {
           <Helmet title={`${story.name} | ${siteTitle}`} />
         </div>
         <Dialog>
-
+          <Img src={story.image.file.url} />
         </Dialog>
       </Layout>
     )
@@ -27,6 +25,10 @@ class BlogPostTemplate extends React.Component {
 }
 
 export default BlogPostTemplate
+
+const Img = styled.img`
+  width: 100%;
+`
 
 export const pageQuery = graphql`
   query StoryBySlug($slug: String!) {
@@ -37,6 +39,16 @@ export const pageQuery = graphql`
     }
     contentfulStory(slug: { eq: $slug }) {
       name
+      image {
+        file {
+          url
+        }
+      }
+      description {
+        childMarkdownRemark {
+          html
+        }
+      }
     }
     allContentfulStory {
       edges {
@@ -50,16 +62,6 @@ export const pageQuery = graphql`
           location {
             lat
             lon
-          }
-          image {
-            file {
-              url
-            }
-          }
-          description {
-            childMarkdownRemark {
-              html
-            }
           }
         }
       }

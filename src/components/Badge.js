@@ -1,30 +1,30 @@
 import * as React from 'react';
 import styled from 'styled-components';
-import { ReactComponent as Badge1950_1965 } from '../icons/badge-1950-1965.svg';
-import { ReactComponent as Badge1966_1980 } from '../icons/badge-1966-1980.svg';
-import { ReactComponent as Badge1981_1995 } from '../icons/badge-1981-1995.svg';
-import { ReactComponent as Badge1996_2010 } from '../icons/badge-1996-2010.svg';
-import { ReactComponent as Badge2011_2019 } from '../icons/badge-2011-2019.svg';
+ import Badge1950_1965 from '../icons/badge-1950-1965.svg';
+ import Badge1966_1980 from '../icons/badge-1966-1980.svg';
+ import Badge1981_1995 from '../icons/badge-1981-1995.svg';
+ import Badge1996_2010 from '../icons/badge-1996-2010.svg';
+ import Badge2011_2019 from '../icons/badge-2011-2019.svg';
 
 const getIcon = (year) => {
-  if (year >= 2011) {
-    return Badge2011_2019;
-  } else if (year >= 1996) {
-    return Badge1996_2010;
-  } else if (year >= 1981) {
-    return Badge1981_1995;
-  } else if (year >= 1966) {
-    return Badge1966_1980;
-  } else {
-    return Badge1950_1965;
-  }
+   if (year >= 2011) {
+     return Badge2011_2019;
+   } else if (year >= 1996) {
+     return Badge1996_2010;
+   } else if (year >= 1981) {
+     return Badge1981_1995;
+   } else if (year >= 1966) {
+     return Badge1966_1980;
+   } else {
+     return Badge1950_1965;
+   }
 }
 
-const Badge = ({ className, year, gender, disabled }) => {
+const Badge = ({ className, year, active }) => {
   const BadgeIcon = getIcon(year);
 
   return (
-    <BadgeRoot className={className} data-gender={gender} disabled={disabled}>
+    <BadgeRoot className={className} aria-active={active}>
       <BadgeIcon aria-hidden="true" />
     </BadgeRoot>
   );
@@ -39,6 +39,7 @@ const BadgeRoot = styled.button`
   cursor: pointer;
   height: 32px;
   width: 70px;
+  padding: 0;
 
   & svg {
     position: absolute;
@@ -49,14 +50,14 @@ const BadgeRoot = styled.button`
   }
 
   & .badge-body {
-    fill: ${p => p['data-gender'] === 'male' ? '#FFFFFF' : '#EB212E'};
+    fill: ${p => !p['aria-active'] ? '#FFFFFF' : '#EB212E'};
     stroke: #EB212E;
 
     transition: fill 0.15s ease-out;
   }
 
   &:hover .badge-body {
-    fill: ${p => p.disabled ? '' : p['data-gender'] === 'male' ? '#EB212E' : '#FFFFFF'};
+    fill: ${p => !p['aria-active'] ? '#EB212E' : '#FFFFFF'};
     stroke: #EB212E;
   }
 `;

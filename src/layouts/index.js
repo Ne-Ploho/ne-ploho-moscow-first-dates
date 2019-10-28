@@ -4,24 +4,19 @@ import DatesMap from '../components/DatesMap';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 
-const Index = ({ children, data, ...rest }) => {
-  console.log(rest);
-  React.useEffect(() => {
-    console.log('init');
+const Index = ({ children, data, pageContext }) => {
+  const edges = data && data.allContentfulStory ? data.allContentfulStory.edges : [];
 
-    return () => console.log('uninit');
-  }, []);
-
-  const stories = data.allContentfulStory.edges.map(e => e.node);
+  const stories = edges.map(e => e.node);
 
   return (
   <IndexRoot>
-    <Header />
+    <Header fromYear={pageContext.fromYear} toYear={pageContext.toYear} />
     <Main>
       <DatesMap stories={stories.filter(s => s.node_locale === 'ru-RU')} />
       {children}
     </Main>
-    <Footer />
+    <Footer fromYear={pageContext.fromYear} toYear={pageContext.toYear} />
   </IndexRoot>
   );
 };
