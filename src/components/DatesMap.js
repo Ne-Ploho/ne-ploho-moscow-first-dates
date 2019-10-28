@@ -3,8 +3,8 @@ import { YMaps, Map as YMap, Placemark, withYMaps } from '@alexkuz/react-yandex-
 import styled from 'styled-components';
 import { navigate } from 'gatsby';
 
-const MAP_WIDTH = 6789;
-const MAP_HEIGHT = 8010;
+const MAP_WIDTH = 6783;
+const MAP_HEIGHT = 8007;
 const WORLD_SIZE = Math.pow(2, 10) * 256;
 
 const CENTER = [55.749, 37.616];
