@@ -38,6 +38,7 @@ module.exports = {
           families: ['Montserrat:400,700']
         }
       }
-    }
+    },
+    // 'gatsby-plugin-svgr'
   ],
 }
