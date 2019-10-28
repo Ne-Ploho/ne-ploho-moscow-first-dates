@@ -32,11 +32,9 @@ module.exports = {
       options: contentfulConfig,
     },
     {
-      resolve: 'gatsby-plugin-web-font-loader',
+      resolve: 'gatsby-plugin-google-fonts',
       options: {
-        google: {
-          families: ['Montserrat:400,700']
-        }
+        fonts: ['Montserrat:400,700']
       }
     },
     'gatsby-plugin-react-svg',
