@@ -1,5 +1,11 @@
 {
-   "localeDir": "src/locales/",
-   "srcPathDirs": ["src/"],
-   "format": "po"
+  "locales": ["en", "ru"],
+  "catalogs": [
+    {
+      "path": "./src/locales/{locale}",
+      "include": ["./src"]
+    }
+  ],
+  "format": "po",
+  "sourceLocale": "ru"
 }

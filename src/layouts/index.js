@@ -1,14 +1,17 @@
 import * as React from 'react';
 import styled from 'styled-components';
+import { I18nProvider } from '@lingui/react';
+import { setupI18n } from '@lingui/core'
 import DatesMap from '../components/DatesMap';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import { I18nProvider } from '@lingui/react';
 
-import catalogEn from '../locales/en/messages.js'
-import catalogRu from '../locales/ru/messages.js'
+import catalogEn from '../locales/en.js'
+import catalogRu from '../locales/ru.js'
 
-const catalogs = { en: catalogEn, ru: catalogRu };
+const i18n = setupI18n();
+i18n.load('en', catalogEn);
+i18n.load('ru', catalogRu);
 
 function getDefaultLang() {
   return 'ru';
@@ -20,12 +23,16 @@ const Index = ({ children, data, pageContext }) => {
 
   const stories = edges.map(e => e.node);
 
+  React.useEffect(() => {
+    i18n.activate(lang);
+  }, [lang]);
+
   const updateLang = lang => {
     setLang(lang);
   }
 
   return (
-  <I18nProvider language={lang} catalogs={catalogs}>
+  <I18nProvider i18n={i18n}>
     <IndexRoot>
       <Header fromYear={pageContext.fromYear} toYear={pageContext.toYear} lang={lang} onLangChange={updateLang} />
       <Main>

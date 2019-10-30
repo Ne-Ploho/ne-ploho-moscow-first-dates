@@ -1,0 +1,86 @@
+msgid ""
+msgstr ""
+"POT-Creation-Date: 2019-10-30 14:04+0300\n"
+"Mime-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: @lingui/cli\n"
+"Language: ru\n"
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Plural-Forms: \n"
+
+#: src/components/Header.js:10
+msgid "About"
+msgstr "About"
+
+#: src/components/Header.js:8
+msgid "First dates of Moscow"
+msgstr "First dates of Moscow"
+
+#: src/pages/about.js:22
+msgid "about.description"
+msgstr "<0>Карта первых свиданий Москвы</0> — это живые настоящие истории, которые нам рассказывали знакомые и незнакомые люди самых разных возрастов. Мы спрашивали про первые свидания на улице, в интернете, у знакомых, друзей и у членов семьи. Реакции были разные: кто-то рассказывал о своём первом свидании взахлёб, кто-то совсем не мог его вспомнить. У кого-то отношения складывались без свиданий вообще. У кого-то свидание получилось, хотя они не виделись лично. Один человек сказал, что о таких личных вещах спрашивать должно быть стыдно, и отказался разговаривать."
+
+#: src/pages/about.js:43
+msgid "about.interviewees.column.1"
+msgstr ""
+"4 Татьяны\n"
+" 3 Полины\n"
+" 3 Сони\n"
+" 3 Кати\n"
+" 2 Дарьи\n"
+" 1 Мария\n"
+" 1 Светлана\n"
+" 1 Яна\n"
+" 1 Саида\n"
+" 1 Надежда\n"
+" 1 Нина\n"
+" 1 Лиза\n"
+" 1 Галя\n"
+" 1 Оксана\n"
+" 1 Аня\n"
+" 1 Евдокия\n"
+" 1 Жанна\n"
+" 1 Лариса"
+
+#: src/pages/about.js:65
+msgid "about.interviewees.column.2"
+msgstr ""
+"1 Аглая\n"
+" 1 Джульетта\n"
+" 1 Лена\n"
+" 1 соседка_дьявола\n"
+" 4 Саши\n"
+" 2 Пети\n"
+" 1 Дима\n"
+" 1 Максим\n"
+" 1 Влад\n"
+" 1 Серёжа\n"
+" 1 Серафим\n"
+" 1 Ваня\n"
+" 1 Филипп\n"
+" 1 Николай\n"
+" 1 Георгий\n"
+" 1 Витя\n"
+" 1 CMEXxX"
+
+#: src/pages/about.js:89
+msgid "about.interviewees.stats"
+msgstr ""
+"9 человек не назвали своего имени.\n"
+" 38 человек не назвали имени своей второй половинки.\n"
+" 13 человек не помнят своего первого свидания.\n"
+" У 6 человек первого свидания не было.\n"
+" 3 человека не захотели говорить из-за эмоций."
+
+#: src/pages/about.js:35
+msgid "about.interviewees.title"
+msgstr "На этой карте на свидание ходили:"
+
+#: src/pages/about.js:99
+msgid "about.interviewers.title"
+msgstr "Про свидания спрашивали:"

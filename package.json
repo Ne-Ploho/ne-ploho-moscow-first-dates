@@ -8,7 +8,7 @@
   },
   "dependencies": {
     "@alexkuz/react-yandex-maps": "^4.0.2",
-    "@lingui/react": "^2.8.3",
+    "@lingui/react": "^3.0.0-7",
     "gatsby-image": "^2.2.30",
     "gatsby-plugin-google-fonts": "^1.0.1",
     "gatsby-plugin-layout": "^1.1.13",
@@ -28,8 +28,8 @@
   },
   "devDependencies": {
     "@babel/core": "^7.6.4",
-    "@lingui/cli": "^2.8.3",
-    "@lingui/macro": "^2.8.3",
+    "@lingui/cli": "^3.0.0-7",
+    "@lingui/macro": "^3.0.0-7",
     "babel-core": "^7.0.0-bridge.0",
     "babel-eslint": "^10.0.3",
     "babel-plugin-macros": "^2.6.1",
