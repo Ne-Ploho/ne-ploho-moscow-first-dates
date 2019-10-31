@@ -5,9 +5,9 @@ import { Trans } from '@lingui/macro';
 
 const Header = ({ lang, onLangChange }) => {
   return <HeaderRoot>
-    <Title><Trans>First dates of Moscow</Trans></Title>
+    <Title><Trans id="header.title">Карта первых свиданий Москвы</Trans></Title>
     <Right>
-      <AboutLink to="/about"><Trans>About</Trans></AboutLink>
+      <AboutLink to="/about"><Trans id="header.about">О карте</Trans></AboutLink>
       <LangSwitch onClick={() => onLangChange(lang === 'ru' ? 'en' : 'ru')}>{lang === 'ru' ? 'EN' : 'RU'}</LangSwitch>
     </Right>
   </HeaderRoot>;

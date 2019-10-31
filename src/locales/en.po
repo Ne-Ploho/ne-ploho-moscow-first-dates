@@ -13,14 +13,6 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
-#: src/components/Header.js:10
-msgid "About"
-msgstr "About"
-
-#: src/components/Header.js:8
-msgid "First dates of Moscow"
-msgstr "First dates of Moscow"
-
 #: src/pages/about.js:22
 msgid "about.description"
 msgstr "<0>Map of the first dates of Moscow</0> consists of real stories told by people of different ages and different backgrounds. We talked with random people on the streets and on the Internet, we asked our friends and family. We got very different reactions: some people told us every little detail, while others didn’t remember their first date at all. One person said we should be ashamed to ask such intimate questions and refused to talk. Some people managed to start relationship with no dates at all, some managed to go on a date without meeting in person. "
@@ -83,3 +75,11 @@ msgstr "People who went on a date on this map:"
 #: src/pages/about.js:99
 msgid "about.interviewers.title"
 msgstr "People who asked about dates:"
+
+#: src/components/Header.js:10
+msgid "header.about"
+msgstr "About"
+
+#: src/components/Header.js:8
+msgid "header.title"
+msgstr "First dates of Moscow"

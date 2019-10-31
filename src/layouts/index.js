@@ -36,7 +36,7 @@ const Index = ({ children, data, pageContext }) => {
     <IndexRoot>
       <Header fromYear={pageContext.fromYear} toYear={pageContext.toYear} lang={lang} onLangChange={updateLang} />
       <Main>
-        <DatesMap stories={stories.filter(s => s.node_locale === 'ru-RU')} />
+        <DatesMap stories={stories.filter(s => s.node_locale === 'ru')} />
         {children}
       </Main>
       <Footer fromYear={pageContext.fromYear} toYear={pageContext.toYear} />

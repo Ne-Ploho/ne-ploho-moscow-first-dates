@@ -40,9 +40,7 @@ export const pageQuery = graphql`
         node {
           node_locale
           gender
-          name
           year
-          age
           slug
           location {
             lat

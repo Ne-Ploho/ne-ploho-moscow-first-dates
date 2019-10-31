@@ -68,14 +68,15 @@ const Body = styled.div`
   z-index: 2;
   background: #FFF;
   border-radius: 10px;
-  min-width: 400px;
-  max-width: 600px;
-  min-height: 400px;
   animation: ${slideIn} 0.2s ease-out;
 `;
 
 const Content = styled.div`
-  padding: 20px;
+  width: 400px;
+  min-height: 300px;
+  max-height: 70vh;
+  padding: 30px;
+  overflow-y: auto;
 `;
 
 const CloseButton = styled.button`
@@ -85,4 +86,5 @@ const CloseButton = styled.button`
   position: absolute;
   top: 10px;
   right: 10px;
+  padding: 0;
 `;

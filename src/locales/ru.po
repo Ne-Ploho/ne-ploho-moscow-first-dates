@@ -13,14 +13,6 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
-#: src/components/Header.js:10
-msgid "About"
-msgstr "About"
-
-#: src/components/Header.js:8
-msgid "First dates of Moscow"
-msgstr "First dates of Moscow"
-
 #: src/pages/about.js:22
 msgid "about.description"
 msgstr "<0>Карта первых свиданий Москвы</0> — это живые настоящие истории, которые нам рассказывали знакомые и незнакомые люди самых разных возрастов. Мы спрашивали про первые свидания на улице, в интернете, у знакомых, друзей и у членов семьи. Реакции были разные: кто-то рассказывал о своём первом свидании взахлёб, кто-то совсем не мог его вспомнить. У кого-то отношения складывались без свиданий вообще. У кого-то свидание получилось, хотя они не виделись лично. Один человек сказал, что о таких личных вещах спрашивать должно быть стыдно, и отказался разговаривать."
@@ -84,3 +76,11 @@ msgstr "На этой карте на свидание ходили:"
 #: src/pages/about.js:99
 msgid "about.interviewers.title"
 msgstr "Про свидания спрашивали:"
+
+#: src/components/Header.js:10
+msgid "header.about"
+msgstr "О карте"
+
+#: src/components/Header.js:8
+msgid "header.title"
+msgstr "Карта первых свиданий Москвы"

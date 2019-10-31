@@ -1,34 +1,41 @@
 import React from 'react'
 import styled from 'styled-components';
 import { graphql } from 'gatsby'
-import Helmet from 'react-helmet'
+import Helmet from 'react-helmet';
+import { useLingui } from '@lingui/react';
 import Layout from '../components/layout'
 import Dialog from '../components/Dialog';
 
-class BlogPostTemplate extends React.Component {
-  render() {
-    const { data } = this.props;
-    const story = data.contentfulStory;
-    const siteTitle = data.site.siteMetadata.title;
+function StoryTemplate(props) {
+  const { data, pageContext } = props;
+  const siteTitle = data.site.siteMetadata.title;
 
-    return (
-      <Layout location={this.props.location} >
-        <div style={{ background: '#fff' }}>
-          <Helmet title={`${story.name} | ${siteTitle}`} />
-        </div>
-        <Dialog>
-          <Img src={story.image.file.url} />
-        </Dialog>
-      </Layout>
-    )
-  }
+  const { i18n } = useLingui();
+
+  const story = i18n.locale === 'ru' ? data.storyRu : data.storyEn;
+
+  return (
+    <Layout location={props.location} >
+      <div style={{ background: '#fff' }}>
+        <Helmet title={`${story.name} | ${siteTitle}`} />
+      </div>
+      <Dialog>
+        <Img src={story.image.file.url} alt={story.description.description} />
+        {i18n.locale !== 'ru' && <Description>{story.description.description}</Description>}
+      </Dialog>
+    </Layout>
+  )
 }
 
-export default BlogPostTemplate
+export default StoryTemplate
 
 const Img = styled.img`
   width: 100%;
 `
+
+const Description = styled.p`
+  max-width: 400px;
+`;
 
 export const pageQuery = graphql`
   query StoryBySlug($slug: String!) {
@@ -37,17 +44,24 @@ export const pageQuery = graphql`
         title
       }
     }
-    contentfulStory(slug: { eq: $slug }) {
-      name
+    storyEn: contentfulStory(slug: { eq: $slug }, node_locale: { eq: "en" }) {
       image {
         file {
           url
         }
       }
       description {
-        childMarkdownRemark {
-          html
+        description
+      }
+    }
+    storyRu: contentfulStory(slug: { eq: $slug }, node_locale: { eq: "ru" }) {
+      image {
+        file {
+          url
         }
+      }
+      description {
+        description
       }
     }
     allContentfulStory {
@@ -55,13 +69,14 @@ export const pageQuery = graphql`
         node {
           node_locale
           gender
-          name
           year
-          age
           slug
           location {
             lat
             lon
+          }
+          description {
+            description
           }
         }
       }

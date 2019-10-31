@@ -128,7 +128,6 @@ const DatesMap = ({ stories }) => {
         options={options}
       >
         {stories.map((s, idx) => {
-          console.log(s.gender)
           return (
             <Placemark
               key={idx}
@@ -136,8 +135,7 @@ const DatesMap = ({ stories }) => {
               properties={{
                 badge: getBadge(s.year),
                 iconContent: s.year,
-                gender: s.gender,
-                iconCaption: `${s.name}, ${s.age}`
+                gender: s.gender
               }}
               options={{
                 iconLayout: svgLayout,

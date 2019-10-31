@@ -23,7 +23,6 @@ exports.createPages = ({ graphql, actions }) => {
             allContentfulStory {
               edges {
                 node {
-                  name
                   slug
                 }
               }

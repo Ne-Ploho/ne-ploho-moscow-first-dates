@@ -1,3 +1,4 @@
+import { graphql } from 'gatsby';
 import YearRangeTemplate from '../templates/yearRange';
 
 export default YearRangeTemplate;
@@ -14,9 +15,7 @@ export const pageQuery = graphql`
         node {
           node_locale
           gender
-          name
           year
-          age
           slug
           location {
             lat
