@@ -14,11 +14,18 @@ function StoryTemplate(props) {
 
   const story = i18n.locale === 'ru' ? data.storyRu : data.storyEn;
 
+  const imageUrl = story.image.file.url;
+  const image2xUrl = story.image2x.file.url;
+
   return (
     <Layout>
       <Helmet title={siteTitle} />
       <Dialog>
-        <Img src={story.image.file.url} alt={story.description.description} />
+        <Img
+          src={imageUrl}
+          srcSet={`${imageUrl}, ${image2xUrl} 2x`}
+          alt={story.description.description}
+        />
         {i18n.locale !== 'ru' && <Description>{story.description.description}</Description>}
       </Dialog>
     </Layout>
@@ -53,12 +60,22 @@ export const pageQuery = graphql`
           url
         }
       }
+      image2x {
+        file {
+          url
+        }
+      }
       description {
         description
       }
     }
     storyRu: contentfulStory(slug: { eq: $slug }, node_locale: { eq: "ru" }) {
       image {
+        file {
+          url
+        }
+      }
+      image2x {
         file {
           url
         }
