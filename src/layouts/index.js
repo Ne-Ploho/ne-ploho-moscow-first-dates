@@ -28,9 +28,9 @@ const i18n = setupI18n();
 i18n.load('en', catalogEn);
 i18n.load('ru', catalogRu);
 
-function getDefaultLang() {
+function getDefaultLang(location) {
   const locales = new LocaleResolver(
-    [new DETECTORS.UrlDetector('l'), new DETECTORS.NavigatorDetector()],
+    [new DETECTORS.UrlDetector('l', location), new DETECTORS.NavigatorDetector()],
     [
       new TRANSFORMERS.LanguageOnlyTransformer(),
       new TRANSFORMERS.AllowOnlyTransformer(['ru', 'en'])
@@ -42,7 +42,7 @@ function getDefaultLang() {
 const Index = ({ children, data, pageContext, location }) => {
   const edges =
     data && data.allContentfulStory ? data.allContentfulStory.edges : [];
-  const [lang, setLang] = React.useState(getDefaultLang());
+  const [lang, setLang] = React.useState(getDefaultLang(location));
 
   const stories = edges.map(e => e.node);
 
