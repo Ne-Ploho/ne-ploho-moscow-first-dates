@@ -13,11 +13,11 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
-#: src/pages/about.js:22
+#: src/pages/about.js:19
 msgid "about.description"
 msgstr "<0>Карта первых свиданий Москвы</0> — это живые настоящие истории, которые нам рассказывали знакомые и незнакомые люди самых разных возрастов. Мы спрашивали про первые свидания на улице, в интернете, у знакомых, друзей и у членов семьи. Реакции были разные: кто-то рассказывал о своём первом свидании взахлёб, кто-то совсем не мог его вспомнить. У кого-то отношения складывались без свиданий вообще. У кого-то свидание получилось, хотя они не виделись лично. Один человек сказал, что о таких личных вещах спрашивать должно быть стыдно, и отказался разговаривать."
 
-#: src/pages/about.js:43
+#: src/pages/about.js:40
 msgid "about.interviewees.column.1"
 msgstr ""
 "4 Татьяны\n"
@@ -39,7 +39,7 @@ msgstr ""
 " 1 Жанна\n"
 " 1 Лариса"
 
-#: src/pages/about.js:65
+#: src/pages/about.js:62
 msgid "about.interviewees.column.2"
 msgstr ""
 "1 Аглая\n"
@@ -60,7 +60,7 @@ msgstr ""
 " 1 Витя\n"
 " 1 CMEXxX"
 
-#: src/pages/about.js:89
+#: src/pages/about.js:86
 msgid "about.interviewees.stats"
 msgstr ""
 "9 человек не назвали своего имени.\n"
@@ -69,18 +69,42 @@ msgstr ""
 " У 6 человек первого свидания не было.\n"
 " 3 человека не захотели говорить из-за эмоций."
 
-#: src/pages/about.js:35
+#: src/pages/about.js:32
 msgid "about.interviewees.title"
 msgstr "На этой карте на свидание ходили:"
 
-#: src/pages/about.js:99
+#: src/pages/about.js:96
 msgid "about.interviewers.title"
 msgstr "Про свидания спрашивали:"
 
-#: src/components/Header.js:10
+#: src/components/Footer.js:73
+msgid "footer.genders.female"
+msgstr "Женщина"
+
+#: src/components/Footer.js:84
+msgid "footer.genders.male"
+msgstr "Мужчина"
+
+#: src/components/Footer.js:62
+msgid "footer.genders.title"
+msgstr "Гендер рассказчика"
+
+#: src/components/Header.js:22
 msgid "header.about"
 msgstr "О карте"
 
-#: src/components/Header.js:8
+#: src/components/Header.js:7
 msgid "header.title"
 msgstr "Карта первых свиданий Москвы"
+
+#: src/components/Header.js:13
+msgid "header.title.female"
+msgstr "<0>Карта первых свиданий Москвы:</0> <1>Женщины</1>"
+
+#: src/components/Header.js:11
+msgid "header.title.male"
+msgstr "<0>Карта первых свиданий Москвы:</0> <1>Mужчины</1>"
+
+#: src/components/Header.js:16
+msgid "header.title.years"
+msgstr "<0>Карта первых свиданий Москвы:</0> <1>{fromYear} - {toYear}</1>"

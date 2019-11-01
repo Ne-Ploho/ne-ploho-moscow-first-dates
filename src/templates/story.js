@@ -15,10 +15,8 @@ function StoryTemplate(props) {
   const story = i18n.locale === 'ru' ? data.storyRu : data.storyEn;
 
   return (
-    <Layout location={props.location} >
-      <div style={{ background: '#fff' }}>
-        <Helmet title={`${story.name} | ${siteTitle}`} />
-      </div>
+    <Layout>
+      <Helmet title={siteTitle} />
       <Dialog>
         <Img src={story.image.file.url} alt={story.description.description} />
         {i18n.locale !== 'ru' && <Description>{story.description.description}</Description>}
@@ -27,7 +25,7 @@ function StoryTemplate(props) {
   )
 }
 
-export default StoryTemplate
+export default StoryTemplate;
 
 const Img = styled.img`
   width: 100%;
@@ -35,6 +33,11 @@ const Img = styled.img`
 
 const Description = styled.p`
   max-width: 400px;
+  color: #EB212E;
+  line-height: 1.6;
+  font-size: 0.9em;
+  white-space: pre-line;
+  margin-bottom: 0;
 `;
 
 export const pageQuery = graphql`
@@ -74,9 +77,6 @@ export const pageQuery = graphql`
           location {
             lat
             lon
-          }
-          description {
-            description
           }
         }
       }

@@ -1,24 +1,18 @@
 import React from 'react';
 import { graphql } from 'gatsby';
 import Helmet from 'react-helmet';
-import Hero from '../components/hero';
 import Layout from '../components/layout';
 
 
-class YearRangeTemplate extends React.Component {
-  render() {
-    const { data } = this.props;
-    const siteTitle = data.site.siteMetadata.title;
+function YearRangeTemplate(props) {
+  const { data } = props;
+  const siteTitle = data.site.siteMetadata.title;
 
-    return (
-      <Layout location={this.props.location}>
-        <div style={{ background: '#fff' }}>
-          <Helmet title={siteTitle} />
-          
-        </div>
-      </Layout>
-    );
-  }
+  return (
+    <Layout>
+      <Helmet title={siteTitle} />
+    </Layout>
+  );
 }
 
 export default YearRangeTemplate;
@@ -45,16 +39,6 @@ export const pageQuery = graphql`
           location {
             lat
             lon
-          }
-          image {
-            file {
-              url
-            }
-          }
-          description {
-            childMarkdownRemark {
-              html
-            }
           }
         }
       }

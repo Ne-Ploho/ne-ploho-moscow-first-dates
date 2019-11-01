@@ -1,10 +1,10 @@
 import React from 'react';
 import { graphql } from 'gatsby';
-import YearRangeTemplate from '../templates/yearRange';
 import Helmet from 'react-helmet';
 import Layout from '../components/layout';
 
-function HomePage(props) {
+
+function GenderTemplate(props) {
   const { data } = props;
   const siteTitle = data.site.siteMetadata.title;
 
@@ -15,16 +15,18 @@ function HomePage(props) {
   );
 }
 
-export default HomePage;
+export default GenderTemplate;
 
 export const pageQuery = graphql`
-  query HomeQuery {
+  query GenderQuery($gender: String!) {
     site {
       siteMetadata {
         title
       }
     }
-    allContentfulStory {
+    allContentfulStory(filter:{
+      gender: { eq: $gender }
+    }) {
       edges {
         node {
           node_locale

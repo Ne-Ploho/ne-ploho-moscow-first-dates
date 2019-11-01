@@ -9,12 +9,15 @@ const years = [
   2011
 ];
 
+const genders = ['male', 'female', 'non-binary'];
+
 exports.createPages = ({ graphql, actions }) => {
   const { createPage } = actions
 
   return new Promise((resolve, reject) => {
-    const blogPost = path.resolve('./src/templates/story.js')
+    const storyPage = path.resolve('./src/templates/story.js')
     const indexPage = path.resolve('./src/templates/yearRange.js')
+    const genderPage = path.resolve('./src/templates/gender.js')
 
     resolve(
       graphql(
@@ -45,11 +48,21 @@ exports.createPages = ({ graphql, actions }) => {
           },
         })})
 
+        genders.forEach(gender => {
+          createPage({
+            path: `/gender/${gender}/`,
+            component: genderPage,
+            context: {
+              gender: gender
+            },
+          })          
+        })
+
         const stories = result.data.allContentfulStory.edges
         stories.forEach((story, index) => {
           createPage({
             path: `/stories/${story.node.slug}/`,
-            component: blogPost,
+            component: storyPage,
             context: {
               slug: story.node.slug
             },
