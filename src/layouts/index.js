@@ -30,7 +30,10 @@ i18n.load('ru', catalogRu);
 
 function getDefaultLang(location) {
   const locales = new LocaleResolver(
-    [new DETECTORS.UrlDetector('l', location), new DETECTORS.NavigatorDetector()],
+    [
+      new DETECTORS.UrlDetector('l', location),
+      typeof window === 'undefined' ? null : new DETECTORS.NavigatorDetector()
+    ].filter(Boolean),
     [
       new TRANSFORMERS.LanguageOnlyTransformer(),
       new TRANSFORMERS.AllowOnlyTransformer(['ru', 'en'])
