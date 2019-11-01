@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components';
-import { graphql, Link } from 'gatsby'
+import { graphql, Link, navigate } from 'gatsby'
 import Helmet from 'react-helmet';
 import { useLingui, Trans } from '@lingui/react';
 import Layout from '../components/layout'
@@ -20,6 +20,21 @@ function StoryTemplate(props) {
 
   const prev = stories.find(s => s.contentfulid === story.contentfulid - 1);
   const next = stories.find(s => s.contentfulid === story.contentfulid + 1);
+
+  React.useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const handleKeyDown = e => {
+      if (prev && e.key === 'ArrowLeft') {
+        navigate(`/stories/${prev.slug}`);
+      } else if (next && e.key === 'ArrowRight') {
+        navigate(`/stories/${next.slug}`);
+      }
+    }
+
+    window.addEventListener('keydown', handleKeyDown);
+
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [prev, next]);
 
   return (
     <Layout>

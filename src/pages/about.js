@@ -110,7 +110,7 @@ function AboutTemplate(props) {
               </div>
               <div>
                 {person.links && person.links.map(
-                  link => <div><a key={link} target="_blank" rel="noopener noreferrer" href={link}>{link}</a></div>
+                  link => <div><a key={link} target="_blank" rel="noopener noreferrer" href={'https://' + link}>{link}</a></div>
                 )}
               </div>
             </p>
