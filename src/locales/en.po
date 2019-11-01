@@ -88,7 +88,7 @@ msgstr "Man"
 msgid "footer.genders.title"
 msgstr "Respondent’s gender"
 
-#: src/components/Header.js:22
+#: src/components/Header.js:24
 msgid "header.about"
 msgstr "About"
 
@@ -107,3 +107,11 @@ msgstr "<0>First dates of Moscow:</0> <1>Men</1>"
 #: src/components/Header.js:16
 msgid "header.title.years"
 msgstr "<0>First dates of Moscow:</0> <1>{fromYear} - {toYear}</1>"
+
+#: src/templates/story.js:35
+msgid "story.back"
+msgstr "Back"
+
+#: src/templates/story.js:36
+msgid "story.forward"
+msgstr "Forward"

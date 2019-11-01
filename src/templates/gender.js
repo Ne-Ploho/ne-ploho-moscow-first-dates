@@ -27,16 +27,14 @@ export const pageQuery = graphql`
     allContentfulStory(filter:{
       gender: { eq: $gender }
     }) {
-      edges {
-        node {
-          node_locale
-          gender
-          year
-          slug
-          location {
-            lat
-            lon
-          }
+      nodes {
+        node_locale
+        gender
+        year
+        slug
+        location {
+          lat
+          lon
         }
       }
     }

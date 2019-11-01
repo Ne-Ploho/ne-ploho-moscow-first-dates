@@ -11,22 +11,29 @@ import catalogEn from '../locales/en.js';
 import catalogRu from '../locales/ru.js';
 
 const GlobalStyle = createGlobalStyle`
+  html {
+    overflow: hidden;
+  }
+
   body {
     margin: 0;
     padding: 0;
-   font-size: 1em;
-   line-height: 1.65;
-   background: #FFFFFF;
+    font-size: 1em;
+    line-height: 1.65;
+    background: #FFFFFF;
+    overflow: hidden;
   }
 
   a {
-   color: currentColor;
+    color: currentColor;
   }
 `;
 
 const i18n = setupI18n();
 i18n.load('en', catalogEn);
 i18n.load('ru', catalogRu);
+
+export const DialogContext = React.createContext(undefined);
 
 function getDefaultLang(location) {
   const locales = new LocaleResolver(
@@ -42,12 +49,46 @@ function getDefaultLang(location) {
   return locales[0] || 'ru';
 }
 
-const Index = ({ children, data, pageContext, location }) => {
-  const edges =
-    data && data.allContentfulStory ? data.allContentfulStory.edges : [];
-  const [lang, setLang] = React.useState(getDefaultLang(location));
+function filterStories(stories, pageContext, lang) {
+  return stories.filter(s => {
+    if (s.node_locale !== lang) return false;
 
-  const stories = edges.map(e => e.node);
+    if (pageContext.fromYear && pageContext.toYear) {
+      const year = parseInt(s.year, 10);
+      return pageContext.fromYear <= year && pageContext.toYear >= year;
+    }
+
+    return true;
+  })
+}
+
+function getDialogState(location, prevDialogState) {
+  const pathname = location.pathname;
+  if (location.pathname.indexOf('/stories/') !== -1) {
+    if (prevDialogState === 'hidden' || prevDialogState === 'disappear') {
+      return 'appear';
+    } else {
+      return 'shown';
+    }
+  } else {
+    if (prevDialogState === 'shown' || prevDialogState === 'appear') {
+      return 'disappear';
+    } else {
+      return 'hidden';
+    }    
+  }
+}
+
+const Index = ({ children, data, pageContext, location }) => {
+  const stories =
+    data && data.allContentfulStory ? data.allContentfulStory.nodes : [];
+  const [lang, setLang] = React.useState(getDefaultLang(location));
+  const [dialogState, setDialogState] = React.useState(getDialogState(location));
+
+  React.useLayoutEffect(() => {
+    const newState = getDialogState(location, dialogState);
+    setDialogState(newState);
+  }, [location]);
 
   React.useEffect(() => {
     i18n.activate(lang);
@@ -58,6 +99,7 @@ const Index = ({ children, data, pageContext, location }) => {
   };
 
   return (
+    <DialogContext.Provider value={dialogState}>
     <I18nProvider i18n={i18n}>
       <IndexRoot>
         <GlobalStyle />
@@ -70,7 +112,7 @@ const Index = ({ children, data, pageContext, location }) => {
           location={location}
         />
         <Main>
-          <DatesMap stories={stories.filter(s => s.node_locale === 'ru')} />
+          <DatesMap stories={filterStories(stories, pageContext, lang)} />
           {children}
         </Main>
         <Footer
@@ -80,6 +122,7 @@ const Index = ({ children, data, pageContext, location }) => {
         />
       </IndexRoot>
     </I18nProvider>
+    </DialogContext.Provider>
   );
 };
 

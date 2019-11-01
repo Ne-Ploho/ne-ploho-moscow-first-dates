@@ -22,6 +22,11 @@ const YearRange = ({ fromYear, toYear, active }) => {
 const YearRangeRoot = styled.div`
   display: flex;
   margin-right: 32px;
+  flex-wrap: nowrap;
+  white-space: nowrap;
+  @media (max-width: 414px) {
+    margin-right: 16px;
+  }
 `;
 
 const Footer = ({ fromYear, toYear, gender }) => {
@@ -87,9 +92,9 @@ const Footer = ({ fromYear, toYear, gender }) => {
           </Genders>
         </LegendGenders>
       </Legend>
-      <a href="https://ne-ploho.com" target="_blank" rel="noopener noreferrer">
+      <LogoLink href="https://ne-ploho.com" target="_blank" rel="noopener noreferrer">
         <StyledLogo />
-      </a>
+      </LogoLink>
     </FooterRoot>
   );
 };
@@ -115,6 +120,20 @@ const FooterRoot = styled.footer`
   &:hover a {
     text-decoration: underline;
   }
+
+  @media (max-width: 414px) {
+    flex-direction: column;
+    padding: 8px 16px;
+    box-sizing: border-box;
+    width: 100vw;
+    height: 90px;
+  }
+`;
+
+const LogoLink = styled.a`
+  @media (max-width: 414px) {
+    align-self: flex-end;
+  }
 `;
 
 const StyledLogo = styled(Logo)`
@@ -128,10 +147,15 @@ const StyledBadge = styled(Badge)`
   width: 26px;
 `;
 
-const Legend = styled.div``;
+const Legend = styled.div`
+  max-width: 100%;
+`;
 
 const LegendYears = styled.div`
   display: flex;
+  flex-wrap: nowrap;
+  overflow-y: auto;
+  max-width: 100vw;
 `;
 
 const LegendGenders = styled.div`
@@ -144,6 +168,16 @@ const LegendGenders = styled.div`
     font-weight: bold;
     color: #EB212E;
     margin-right: 16px;
+    white-space: nowrap;
+  }
+
+  @media (max-width: 414px) {
+    flex-direction: column;
+    align-items: flex-start;
+
+    & label {
+      display: none;
+    }
   }
 `;
 

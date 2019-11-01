@@ -1,14 +1,15 @@
 import React from 'react'
 import styled from 'styled-components';
-import { graphql } from 'gatsby'
+import { graphql, Link } from 'gatsby'
 import Helmet from 'react-helmet';
-import { useLingui } from '@lingui/react';
+import { useLingui, Trans } from '@lingui/react';
 import Layout from '../components/layout'
 import Dialog from '../components/Dialog';
 
 function StoryTemplate(props) {
   const { data, pageContext } = props;
   const siteTitle = data.site.siteMetadata.title;
+  const stories = data.allContentfulStory.nodes;
 
   const { i18n } = useLingui();
 
@@ -16,6 +17,9 @@ function StoryTemplate(props) {
 
   const imageUrl = story.image.file.url;
   const image2xUrl = story.image2x.file.url;
+
+  const prev = stories.find(s => s.contentfulid === story.contentfulid - 1);
+  const next = stories.find(s => s.contentfulid === story.contentfulid + 1);
 
   return (
     <Layout>
@@ -27,6 +31,10 @@ function StoryTemplate(props) {
           alt={story.description.description}
         />
         {i18n.locale !== 'ru' && <Description>{story.description.description}</Description>}
+        <Controls>
+          {prev && <Link className="prev-link" to={`/stories/${prev.slug}`}><Trans id="story.back">Назад</Trans></Link>}
+          {next && <Link className="next-link" to={`/stories/${next.slug}`}><Trans id="story.forward">Вперед</Trans></Link>}
+        </Controls>
       </Dialog>
     </Layout>
   )
@@ -36,7 +44,37 @@ export default StoryTemplate;
 
 const Img = styled.img`
   width: 100%;
+  min-height: 310px;
+
+  @media (max-width: 414px) {
+    min-height: auto;
+  }
 `
+
+const Controls = styled.div`
+  margin-top: 16px;
+  height: 16px;
+  line-height: 1;
+
+  & a {
+    font-size: 0.9em;
+    color: #EB212E;
+    text-decoration: none;
+    font-weight: bold;
+  }
+
+  & a:hover {
+    text-decoration: underline;
+  }
+
+  & .prev-link {
+    float: left;
+  }
+
+  & .next-link {
+    float: right;
+  }
+`;
 
 const Description = styled.p`
   max-width: 400px;
@@ -55,6 +93,7 @@ export const pageQuery = graphql`
       }
     }
     storyEn: contentfulStory(slug: { eq: $slug }, node_locale: { eq: "en" }) {
+      contentfulid
       image {
         file {
           url
@@ -70,6 +109,7 @@ export const pageQuery = graphql`
       }
     }
     storyRu: contentfulStory(slug: { eq: $slug }, node_locale: { eq: "ru" }) {
+      contentfulid
       image {
         file {
           url
@@ -85,16 +125,15 @@ export const pageQuery = graphql`
       }
     }
     allContentfulStory {
-      edges {
-        node {
-          node_locale
-          gender
-          year
-          slug
-          location {
-            lat
-            lon
-          }
+      nodes {
+        contentfulid
+        node_locale
+        gender
+        year
+        slug
+        location {
+          lat
+          lon
         }
       }
     }

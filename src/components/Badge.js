@@ -21,7 +21,7 @@ const getIcon = (year) => {
 }
 
 const Badge = ({ className, year, active }) => {
-  const BadgeIcon = getIcon(year);
+  const BadgeIcon = getIcon(parseInt(year, 10));
 
   return (
     <BadgeRoot className={className} aria-pressed={active}>

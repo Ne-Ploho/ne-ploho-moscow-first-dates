@@ -41,8 +41,10 @@ const HeaderRoot = styled.header`
   padding: 8px 24px;
   box-sizing: border-box;
   display: flex;
+  align-items: center;
   justify-content: space-between;
   color: #EB212E;
+  font-size: 1em;
 
   & a {
     text-decoration: none;
@@ -52,6 +54,11 @@ const HeaderRoot = styled.header`
       text-decoration: underline;
     }    
   }
+
+  @media (max-width: 414px) {
+    padding: 8px 16px;
+    font-size: 0.8em;
+  }
 `;
 
 const Section = styled.span`
@@ -59,13 +66,19 @@ const Section = styled.span`
 `;
 
 const Title = styled.h1`
+  font-size: inherit;
   margin: 0;
   font-weight: normal;
-  font-size: 1em;
   text-transform: uppercase;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 `;
 
 const AboutLink = styled(Link)`
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 `;
 
 const LangSwitch = styled.a`
@@ -75,6 +88,7 @@ const LangSwitch = styled.a`
   cursor: pointer;
   margin-left: 16px;
   line-height: 1;
+  font-size: 0.9em;
 `;
 
 const Right = styled.div`

@@ -1,14 +1,18 @@
 import React from 'react';
 import styled from 'styled-components';
-import { graphql } from 'gatsby';
+import { graphql, Link } from 'gatsby';
 import Helmet from 'react-helmet';
+import { Trans } from '@lingui/macro';
+import { useLingui } from '@lingui/react';
+
 import Layout from '../components/layout';
 import Dialog from '../components/Dialog';
-import { Trans } from '@lingui/macro';
 
 function AboutTemplate(props) {
   const { data } = props;
   const siteTitle = data.site.siteMetadata.title;
+  const { i18n } = useLingui();
+  const interviewers = data.allContentfulInterviewer.nodes.filter(person => person.node_locale === i18n.locale);
 
   return (
     <Layout>
@@ -95,6 +99,23 @@ function AboutTemplate(props) {
         <h3>
           <Trans id="about.interviewers.title">Про свидания спрашивали:</Trans>
         </h3>
+        <p>
+          {interviewers.map(person => {
+            return <p>
+              <b>{person.name}</b>
+              <div>
+                {person.stories && person.stories.map(
+                  story => <StoryLink key={story.slug} to={`/stories/${story.slug}`}>{story.contentfulid}</StoryLink>
+                )}
+              </div>
+              <div>
+                {person.links && person.links.map(
+                  link => <div><a key={link} target="_blank" rel="noopener noreferrer" href={link}>{link}</a></div>
+                )}
+              </div>
+            </p>
+          })}
+        </p>
         </AboutContent>
       </Dialog>
     </Layout>
@@ -106,17 +127,42 @@ export default AboutTemplate;
 const AboutContent = styled.div`
   white-space: pre-line;
   line-height: 1.6;
-  color: #EB212E;
+  font-size: 0.9em;
+
+  & > p:first-child {
+    margin-top: 0;
+  }
+
   & h3 {
     margin: 24px 0 16px;
     font-size: 1em;
     font-weight: bold;
   }
 
+  & table {
+    width: 100%;
+  }
+
   & td {
     width: 50%;
     vertical-align: top;
   }
+
+  & a {
+    text-decoration: none;
+  }
+
+  & a:hover {
+    text-decoration: underline;
+  }
+`;
+
+const StoryLink = styled(Link)`
+  background-color: #EB212E;
+  color: #FFFFFF;
+  padding: 0 5px;
+  font-weight: bold;
+  margin-right: 5px;
 `;
 
 export const pageQuery = graphql`
@@ -124,6 +170,18 @@ export const pageQuery = graphql`
     site {
       siteMetadata {
         title
+      }
+    }
+
+    allContentfulInterviewer {
+      nodes {
+        name
+        links
+        node_locale
+        stories {
+          contentfulid
+          slug
+        }
       }
     }
   }

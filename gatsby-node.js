@@ -24,10 +24,8 @@ exports.createPages = ({ graphql, actions }) => {
         `
           {
             allContentfulStory {
-              edges {
-                node {
-                  slug
-                }
+              nodes {
+                slug
               }
             }
           }
@@ -58,13 +56,13 @@ exports.createPages = ({ graphql, actions }) => {
           })          
         })
 
-        const stories = result.data.allContentfulStory.edges
+        const stories = result.data.allContentfulStory.nodes
         stories.forEach((story, index) => {
           createPage({
-            path: `/stories/${story.node.slug}/`,
+            path: `/stories/${story.slug}/`,
             component: storyPage,
             context: {
-              slug: story.node.slug
+              slug: story.slug
             },
           })
         })

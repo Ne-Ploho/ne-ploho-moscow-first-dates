@@ -89,7 +89,7 @@ msgstr "Мужчина"
 msgid "footer.genders.title"
 msgstr "Гендер рассказчика"
 
-#: src/components/Header.js:22
+#: src/components/Header.js:24
 msgid "header.about"
 msgstr "О карте"
 
@@ -108,3 +108,11 @@ msgstr "<0>Карта первых свиданий Москвы:</0> <1>Mужч
 #: src/components/Header.js:16
 msgid "header.title.years"
 msgstr "<0>Карта первых свиданий Москвы:</0> <1>{fromYear} - {toYear}</1>"
+
+#: src/templates/story.js:35
+msgid "story.back"
+msgstr "Назад"
+
+#: src/templates/story.js:36
+msgid "story.forward"
+msgstr "Вперед"

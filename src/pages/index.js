@@ -25,16 +25,14 @@ export const pageQuery = graphql`
       }
     }
     allContentfulStory {
-      edges {
-        node {
-          node_locale
-          gender
-          year
-          slug
-          location {
-            lat
-            lon
-          }
+      nodes {
+        node_locale
+        gender
+        year
+        slug
+        location {
+          lat
+          lon
         }
       }
     }

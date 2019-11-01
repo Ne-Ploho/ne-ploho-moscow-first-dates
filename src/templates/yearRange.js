@@ -18,28 +18,21 @@ function YearRangeTemplate(props) {
 export default YearRangeTemplate;
 
 export const pageQuery = graphql`
-  query YearRangeQuery($fromYear: Int! = 0, $toYear: Int! = 9999) {
+  query YearRangeQuery {
     site {
       siteMetadata {
         title
       }
     }
-    allContentfulStory(filter:{
-      year: {
-        gte: $fromYear,
-        lte: $toYear
-      }
-    }) {
-      edges {
-        node {
-          node_locale
-          gender
-          year
-          slug
-          location {
-            lat
-            lon
-          }
+    allContentfulStory {
+      nodes {
+        node_locale
+        gender
+        year
+        slug
+        location {
+          lat
+          lon
         }
       }
     }

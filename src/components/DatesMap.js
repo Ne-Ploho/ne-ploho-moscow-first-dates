@@ -88,7 +88,7 @@ const DatesMap = ({ stories }) => {
       const layer = new ymaps.Layer('/assets/tiles/%z/tile-%x-%y.png', {});
 
       layer.getZoomRange = function() {
-        return ymaps.vow.resolve([6, 10]);
+        return ymaps.vow.resolve([6, 9]);
       };
 
       return layer;
@@ -133,7 +133,7 @@ const DatesMap = ({ stories }) => {
               key={idx}
               geometry={scaleLocation([s.location.lat, s.location.lon])}
               properties={{
-                badge: getBadge(s.year),
+                badge: getBadge(parseInt(s.year)),
                 iconContent: s.year,
                 gender: s.gender
               }}
@@ -172,15 +172,25 @@ const StyledYMap = styled(YMap)`
   flex: 1 0 auto;
   height: calc(100vh - 120px);
 
+  @media (max-width: 414px) {
+    height: calc(100vh - 130px);
+  }
+
   & .map-badge {
+    display: inline-block;
     position: relative;
-    transform: translate(-35px, -16px);
-    width: 70px;
-    height: 32px;
+    transform: translate(-50%, -50%);
+    height: 21px;
     text-align: center;
   }
 
   & .map-badge svg {
+    position: absolute;
+    z-index: 0;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
   }
 
   & .map-badge svg .badge-body {
@@ -193,11 +203,10 @@ const StyledYMap = styled(YMap)`
   }
 
   & .map-badge .badge-year {
-    position: absolute;
-    width: 100%;
-    top: 6px;
-    text-align: center;
+    position: relative;
+    z-index: 1;
     font-weight: bold;
+    padding: 1px 10px 0;
   }
 
   & .map-badge.map-badge-male .badge-year {
