@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { YMaps, Map as YMap, Placemark, withYMaps } from '@alexkuz/react-yandex-maps';
+import { YMaps, Map as YMap, Placemark, withYMaps, Polyline } from '@alexkuz/react-yandex-maps';
 import styled from 'styled-components';
 import { navigate } from 'gatsby';
 import Badge1950_1965 from '!!raw-loader!../icons/badge-1950-1965.svg';
@@ -57,6 +57,32 @@ const DatesMap = ({ stories }) => {
   const [ymaps, setYmaps] = React.useState(null);
   const [map, setMap] = React.useState(null);
   const [mapType, setMapType] = React.useState(null);
+
+//   const [poly, setPoly] = React.useState([]);
+// 
+//   React.useEffect(() => {
+//     if (map) {
+//       const handleClick = e => {
+//         const coords = e.get('coords');
+//         setPoly([...poly, coords])
+//       };
+//       map.events.add('click', handleClick)
+// 
+//       return () => map.events.remove('click', handleClick);
+//     }
+//   }, [map, poly])
+// 
+//   console.log(JSON.stringify(poly.map(c => {
+//     return [
+//       (c[0] - CENTER[0]) / LOCATION_FACTOR + CENTER[0],
+//       (c[1] - CENTER[1]) / LOCATION_FACTOR + CENTER[1],
+//     ]
+//   }).map(c => {
+//     return [
+//       parseFloat(c[0].toPrecision(6)),
+//       parseFloat(c[1].toPrecision(6))
+//     ]
+//   })));
 
   const options = React.useMemo(
     () => {
@@ -127,6 +153,10 @@ const DatesMap = ({ stories }) => {
         }}
         options={options}
       >
+        {/*<Polyline
+          geometry={poly}
+          options={{ strokeColor: '#000', strokeWidth: 2 }}
+        />*/}
         {stories.map((s, idx) => {
           return (
             <Placemark
@@ -191,6 +221,7 @@ const StyledYMap = styled(YMap)`
     left: 0;
     width: 100%;
     height: 100%;
+    filter: drop-shadow( -1px -1px 2px rgba(100, 0, 0, .6));
   }
 
   & .map-badge svg .badge-body {
@@ -199,14 +230,14 @@ const StyledYMap = styled(YMap)`
 
   & .map-badge.map-badge-male svg .badge-body {
     fill: #FFFFFF;
-    stroke: #EB212E;
+    stroke: none;
   }
 
   & .map-badge .badge-year {
     position: relative;
     z-index: 1;
     font-weight: bold;
-    padding: 1px 10px 0;
+    padding: 1px 14px 0;
   }
 
   & .map-badge.map-badge-male .badge-year {
@@ -215,7 +246,7 @@ const StyledYMap = styled(YMap)`
 
   & .map-badge.map-badge-female svg .badge-body {
     fill: #EB212E;
-    stroke: #EB212E;
+    stroke: none;
   }
 
   & .map-badge.map-badge-female .badge-year {

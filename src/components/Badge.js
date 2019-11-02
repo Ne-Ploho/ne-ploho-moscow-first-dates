@@ -24,7 +24,7 @@ const Badge = ({ className, year, active }) => {
   const BadgeIcon = getIcon(parseInt(year, 10));
 
   return (
-    <BadgeRoot className={className} aria-pressed={active}>
+    <BadgeRoot className={className} data-active={active}>
       <BadgeIcon aria-hidden="true" />
     </BadgeRoot>
   );
@@ -50,14 +50,14 @@ const BadgeRoot = styled.button`
   }
 
   & .badge-body {
-    fill: ${p => !p['aria-pressed'] ? '#FFFFFF' : '#EB212E'};
+    fill: ${p => !p['data-active'] ? '#FFFFFF' : '#EB212E'};
     stroke: #EB212E;
 
     transition: fill 0.15s ease-out;
   }
 
   &:hover .badge-body {
-    fill: ${p => !p['aria-pressed'] ? '#EB212E' : '#FFFFFF'};
+    fill: ${p => !p['data-active'] ? '#EB212E' : '#FFFFFF'};
     stroke: #EB212E;
   }
 `;
