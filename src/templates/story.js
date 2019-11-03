@@ -1,14 +1,12 @@
 import React from 'react'
 import styled from 'styled-components';
 import { graphql, Link, navigate } from 'gatsby'
-import Helmet from 'react-helmet';
 import { useLingui, Trans } from '@lingui/react';
-import Layout from '../components/layout'
+import Layout from '../components/Layout'
 import Dialog from '../components/Dialog';
 
 function StoryTemplate(props) {
   const { data, pageContext } = props;
-  const siteTitle = data.site.siteMetadata.title;
   const stories = data.allContentfulStory.nodes;
 
   const { i18n } = useLingui();
@@ -38,7 +36,6 @@ function StoryTemplate(props) {
 
   return (
     <Layout>
-      <Helmet title={siteTitle} />
       <Dialog>
         <Img
           src={imageUrl}
@@ -102,11 +99,6 @@ const Description = styled.p`
 
 export const pageQuery = graphql`
   query StoryBySlug($slug: String!) {
-    site {
-      siteMetadata {
-        title
-      }
-    }
     storyEn: contentfulStory(slug: { eq: $slug }, node_locale: { eq: "en" }) {
       contentfulid
       image {

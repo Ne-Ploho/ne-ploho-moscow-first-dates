@@ -1,5 +1,6 @@
 {
   "presets": [
+    "@lingui/babel-preset-react",
     [
       "babel-preset-gatsby",
       {

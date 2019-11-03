@@ -17,9 +17,6 @@ if (!spaceId || !accessToken) {
 }
 
 module.exports = {
-  siteMetadata: {
-    title: 'Moscow First Dates',
-  },
   pathPrefix: '/gatsby-contentful-starter',
   plugins: [
     'gatsby-plugin-layout',

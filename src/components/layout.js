@@ -1,18 +1,23 @@
 import React from 'react'
 import { Link } from 'gatsby'
 import styled from 'styled-components';
+import Helmet from 'react-helmet';
+import { t } from '@lingui/macro';
+import { useLingui } from '@lingui/react';
 
-class Layout extends React.Component {
-  render() {
-    const { location, children } = this.props
-    let header
+function Layout(props) {
+  const { location, children } = props;
+  const { i18n } = useLingui();
+  
+  const appTitle =  i18n._(t`app.title`);
 
-    return (
-      <LayoutRoot>
-        {children}
-      </LayoutRoot>
-    )
-  }
+  const title = props.title ? `${props.title} | ${appTitle}`: appTitle;
+  return (
+    <LayoutRoot>
+      <Helmet title={title} />
+      {children}
+    </LayoutRoot>
+  )
 }
 
 export default Layout

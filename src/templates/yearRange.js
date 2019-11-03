@@ -1,17 +1,17 @@
 import React from 'react';
 import { graphql } from 'gatsby';
-import Helmet from 'react-helmet';
-import Layout from '../components/layout';
+import Layout from '../components/Layout';
 
 
 function YearRangeTemplate(props) {
-  const { data } = props;
-  const siteTitle = data.site.siteMetadata.title;
+  const { data, pageContext } = props;
+
+  const title = pageContext.fromYear && pageContext.toYear
+    ? `${pageContext.fromYear} - ${pageContext.toYear}`
+    : undefined;
 
   return (
-    <Layout>
-      <Helmet title={siteTitle} />
-    </Layout>
+    <Layout title={title} />
   );
 }
 
@@ -19,11 +19,6 @@ export default YearRangeTemplate;
 
 export const pageQuery = graphql`
   query YearRangeQuery {
-    site {
-      siteMetadata {
-        title
-      }
-    }
     allContentfulStory {
       nodes {
         node_locale

@@ -29,6 +29,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.6.4",
+    "@lingui/babel-preset-react": "^2.8.3",
     "@lingui/cli": "^3.0.0-7",
     "@lingui/macro": "^3.0.0-7",
     "babel-core": "^7.0.0-bridge.0",

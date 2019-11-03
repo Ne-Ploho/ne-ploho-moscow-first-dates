@@ -13,11 +13,11 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
-#: src/pages/about.js:19
+#: src/pages/about.js:20
 msgid "about.description"
 msgstr "<0>Карта первых свиданий Москвы</0> — это живые настоящие истории, которые нам рассказывали знакомые и незнакомые люди самых разных возрастов. Мы спрашивали про первые свидания на улице, в интернете, у знакомых, друзей и у членов семьи. Реакции были разные: кто-то рассказывал о своём первом свидании взахлёб, кто-то совсем не мог его вспомнить. У кого-то отношения складывались без свиданий вообще. У кого-то свидание получилось, хотя они не виделись лично. Один человек сказал, что о таких личных вещах спрашивать должно быть стыдно, и отказался разговаривать."
 
-#: src/pages/about.js:40
+#: src/pages/about.js:41
 msgid "about.interviewees.column.1"
 msgstr ""
 "4 Татьяны\n"
@@ -39,7 +39,7 @@ msgstr ""
 " 1 Жанна\n"
 " 1 Лариса"
 
-#: src/pages/about.js:62
+#: src/pages/about.js:63
 msgid "about.interviewees.column.2"
 msgstr ""
 "1 Аглая\n"
@@ -60,7 +60,7 @@ msgstr ""
 " 1 Витя\n"
 " 1 CMEXxX"
 
-#: src/pages/about.js:86
+#: src/pages/about.js:87
 msgid "about.interviewees.stats"
 msgstr ""
 "9 человек не назвали своего имени.\n"
@@ -69,25 +69,41 @@ msgstr ""
 " У 6 человек первого свидания не было.\n"
 " 3 человека не захотели говорить из-за эмоций."
 
-#: src/pages/about.js:32
+#: src/pages/about.js:33
 msgid "about.interviewees.title"
 msgstr "На этой карте на свидание ходили:"
 
-#: src/pages/about.js:96
+#: src/pages/about.js:97
 msgid "about.interviewers.title"
 msgstr "Про свидания спрашивали:"
 
-#: src/components/Footer.js:73
+#: src/pages/about.js:16
+msgid "about.title"
+msgstr "О карте"
+
+#: src/components/Layout.js:12
+msgid "app.title"
+msgstr "Карта первых свиданий Москвы"
+
+#: src/components/Footer.js:78
 msgid "footer.genders.female"
 msgstr "Женщина"
 
-#: src/components/Footer.js:84
+#: src/components/Footer.js:89
 msgid "footer.genders.male"
 msgstr "Мужчина"
 
-#: src/components/Footer.js:62
+#: src/components/Footer.js:67
 msgid "footer.genders.title"
 msgstr "Гендер рассказчика"
+
+#: src/templates/gender.js:15
+msgid "genderPage.female.title"
+msgstr "Женщины"
+
+#: src/templates/gender.js:14
+msgid "genderPage.male.title"
+msgstr "Мужчины"
 
 #: src/components/Header.js:24
 msgid "header.about"
@@ -109,10 +125,10 @@ msgstr "<0>Карта первых свиданий Москвы:</0> <1>Mужч
 msgid "header.title.years"
 msgstr "<0>Карта первых свиданий Москвы:</0> <1>{fromYear} - {toYear}</1>"
 
-#: src/templates/story.js:35
+#: src/templates/story.js:47
 msgid "story.back"
 msgstr "Назад"
 
-#: src/templates/story.js:36
+#: src/templates/story.js:48
 msgid "story.forward"
 msgstr "Вперед"

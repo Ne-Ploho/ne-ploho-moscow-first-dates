@@ -1,17 +1,22 @@
 import React from 'react';
 import { graphql } from 'gatsby';
-import Helmet from 'react-helmet';
-import Layout from '../components/layout';
+import { t } from '@lingui/macro';
+import { useLingui } from '@lingui/react';
+
+import Layout from '../components/Layout';
 
 
 function GenderTemplate(props) {
-  const { data } = props;
-  const siteTitle = data.site.siteMetadata.title;
+  const { data, pageContext } = props;
+  const { i18n } = useLingui();
+
+  const title = i18n._(pageContext.gender === 'male'
+    ? t`genderPage.male.title`
+    : t`genderPage.female.title`
+  );
 
   return (
-    <Layout>
-      <Helmet title={siteTitle} />
-    </Layout>
+    <Layout title={title} />
   );
 }
 
@@ -19,11 +24,6 @@ export default GenderTemplate;
 
 export const pageQuery = graphql`
   query GenderQuery($gender: String!) {
-    site {
-      siteMetadata {
-        title
-      }
-    }
     allContentfulStory(filter:{
       gender: { eq: $gender }
     }) {

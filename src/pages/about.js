@@ -1,22 +1,19 @@
 import React from 'react';
 import styled from 'styled-components';
 import { graphql, Link } from 'gatsby';
-import Helmet from 'react-helmet';
-import { Trans } from '@lingui/macro';
+import { Trans, t } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
 
-import Layout from '../components/layout';
+import Layout from '../components/Layout';
 import Dialog from '../components/Dialog';
 
 function AboutTemplate(props) {
   const { data } = props;
-  const siteTitle = data.site.siteMetadata.title;
   const { i18n } = useLingui();
   const interviewers = data.allContentfulInterviewer.nodes.filter(person => person.node_locale === i18n.locale);
 
   return (
-    <Layout>
-      <Helmet title={`О карте | ${siteTitle}`} />
+    <Layout title={i18n._(t`about.title`)}>
       <Dialog>
         <AboutContent>
         <p>
@@ -167,12 +164,6 @@ const StoryLink = styled(Link)`
 
 export const pageQuery = graphql`
   query AboutQuery {
-    site {
-      siteMetadata {
-        title
-      }
-    }
-
     allContentfulInterviewer {
       nodes {
         name
