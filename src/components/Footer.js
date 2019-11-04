@@ -1,33 +1,19 @@
 import * as React from 'react';
 import styled from 'styled-components';
-import { Link } from 'gatsby';
+import { Link, navigate } from 'gatsby';
 import Badge from './Badge';
 import Logo from '../icons/neploho_logo.svg';
 import { Trans } from '@lingui/macro';
 
 const YearRange = ({ fromYear, toYear, active }) => {
+  const url = active ? '/' : `/years/${fromYear}-${toYear}`;
   return (
-    <YearRangeRoot>
-      <StyledBadge year={fromYear} active />{' '}
-      <Link
-        to={active ? '/' : `/years/${fromYear}-${toYear}`}
-        style={{ textDecoration: active ? 'underline' : 'none' }}
-      >
-        {fromYear} - {toYear}
-      </Link>
-    </YearRangeRoot>
+    <StyledBadge year={fromYear} active={active} label={`${fromYear} - ${toYear}`} to={url}>
+      {' '}
+      {fromYear} - {toYear}
+    </StyledBadge>
   );
 };
-
-const YearRangeRoot = styled.div`
-  display: flex;
-  margin-right: 32px;
-  flex-wrap: nowrap;
-  white-space: nowrap;
-  @media (max-width: 414px) {
-    margin-right: 16px;
-  }
-`;
 
 const Footer = ({ fromYear, toYear, gender }) => {
   const inRange = (f, t) => fromYear <= f && toYear >= t;
@@ -67,28 +53,12 @@ const Footer = ({ fromYear, toYear, gender }) => {
             <Trans id="footer.genders.title">Гендер рассказчика</Trans>
           </label>
           <Genders>
-            <Gender>
-              <StyledBadge year={2011} active />
-              <Link
-                to={gender === 'female' ? '/' : `/gender/female`}
-                style={{
-                  textDecoration: gender === 'female' ? 'underline' : 'none'
-                }}
-              >
-                <Trans id="footer.genders.female">Женщина</Trans>
-              </Link>
-            </Gender>
-            <Gender>
-              <StyledBadge year={2011} />
-              <Link
-                to={gender === 'male' ? '/' : `/gender/male`}
-                style={{
-                  textDecoration: gender === 'male' ? 'underline' : 'none'
-                }}
-              >
-                <Trans id="footer.genders.male">Мужчина</Trans>
-              </Link>
-            </Gender>
+            <StyledBadge year={2011} active={gender === 'female'} to={gender === 'female' ? '/' : `/gender/female`}>
+              <Trans id="footer.genders.female">Женщина</Trans>
+            </StyledBadge>
+            <StyledBadge year={2011} active={gender === 'male'} inverted to={gender === 'male' ? '/' : `/gender/male`}>
+              <Trans id="footer.genders.male">Мужчина</Trans>
+            </StyledBadge>
           </Genders>
         </LegendGenders>
       </Legend>
@@ -111,14 +81,8 @@ const FooterRoot = styled.footer`
 
   & a {
     color: #dd5db3;
-    text-decoration: none;
     font-size: 0.8em;
     line-height: 1;
-    margin-left: 8px;
-  }
-
-  &:hover a {
-    text-decoration: underline;
   }
 
   @media (max-width: 414px) {
@@ -143,12 +107,16 @@ const StyledLogo = styled(Logo)`
 `;
 
 const StyledBadge = styled(Badge)`
-  height: 12px;
-  width: 26px;
+  margin-right: 32px;
+
+  @media (max-width: 414px) {
+    margin-right: 16px;
+  }
 `;
 
 const Legend = styled.div`
   max-width: 100%;
+  min-width: 50%;
 `;
 
 const LegendYears = styled.div`
@@ -182,10 +150,5 @@ const LegendGenders = styled.div`
 `;
 
 const Genders = styled.div`
-  display: flex;
-`;
-
-const Gender = styled.div`
-  margin-right: 16px;
   display: flex;
 `;

@@ -81,6 +81,10 @@ msgstr "Про свидания спрашивали:"
 msgid "about.title"
 msgstr "О карте"
 
+#: src/components/Layout.js:13
+msgid "app.description"
+msgstr "Истории о первых свиданиях, рассказанные нам знакомыми и незнакомыми людьми самых разных возрастов"
+
 #: src/components/Layout.js:12
 msgid "app.title"
 msgstr "Карта первых свиданий Москвы"

@@ -80,6 +80,10 @@ msgstr "People who asked about dates:"
 msgid "about.title"
 msgstr "About"
 
+#: src/components/Layout.js:13
+msgid "app.description"
+msgstr "First date stories told by people of different ages and different backgrounds"
+
 #: src/components/Layout.js:12
 msgid "app.title"
 msgstr "First dates of Moscow"
