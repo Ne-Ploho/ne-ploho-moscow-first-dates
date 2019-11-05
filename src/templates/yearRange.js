@@ -21,6 +21,7 @@ export const pageQuery = graphql`
   query YearRangeQuery {
     allContentfulStory {
       nodes {
+        contentfulid
         node_locale
         gender
         year

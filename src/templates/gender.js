@@ -28,6 +28,7 @@ export const pageQuery = graphql`
       gender: { eq: $gender }
     }) {
       nodes {
+        contentfulid
         node_locale
         gender
         year

@@ -130,7 +130,7 @@ const DatesMap = ({ stories }) => {
   }, [ymaps]);
 
   const svgLayout = React.useMemo(() =>
-    ymaps && ymaps.templateLayoutFactory.createClass('<div class="map-badge map-badge-{{ properties.gender }}">$[properties.badge]<div class="badge-year">$[properties.iconContent]</div></div>'),
+    ymaps && ymaps.templateLayoutFactory.createClass('<div data-id="{{ properties.id }}" class="map-badge map-badge-{{ properties.gender }}">$[properties.badge]<div class="badge-year">$[properties.iconContent]</div></div>'),
     [ymaps]
   );
 
@@ -165,7 +165,8 @@ const DatesMap = ({ stories }) => {
               properties={{
                 badge: getBadge(parseInt(s.year)),
                 iconContent: s.year,
-                gender: s.gender
+                gender: s.gender,
+                id: s.contentfulid
               }}
               options={{
                 iconLayout: svgLayout,

@@ -2,9 +2,12 @@ import * as React from 'react';
 import styled from 'styled-components';
 import { Link } from 'gatsby';
 import { Trans } from '@lingui/macro';
+import { useLingui } from '@lingui/react';
 
-const Header = ({ lang, onLangChange, fromYear, toYear, gender, location }) => {
+const Header = ({ fromYear, toYear, gender, location }) => {
   let title = <Trans id="header.title">Карта первых свиданий Москвы</Trans>;
+
+  const { i18n } = useLingui();
 
   if (gender) {
     if (gender === 'male') {
@@ -16,7 +19,7 @@ const Header = ({ lang, onLangChange, fromYear, toYear, gender, location }) => {
     title = <Trans id="header.title.years"><Link to="/">Карта первых свиданий Москвы:</Link> <Section>{fromYear} - {toYear}</Section></Trans>;
   }
 
-  const switchLangUrl = location.pathname + '?l=' + (lang === 'ru' ? 'en' : 'ru');
+  const switchLangUrl = location.pathname + '?l=' + (i18n.locale === 'ru' ? 'en' : 'ru');
 
   return <HeaderRoot>
     <Title>{title}</Title>
@@ -27,8 +30,8 @@ const Header = ({ lang, onLangChange, fromYear, toYear, gender, location }) => {
         if (window && window.history) {
           window.history.replaceState(null, null, switchLangUrl);
         }
-        onLangChange(lang === 'ru' ? 'en' : 'ru')
-      }}>{lang === 'ru' ? 'EN' : 'RU'}</LangSwitch>
+        i18n.activate(i18n.locale  === 'ru' ? 'en' : 'ru');
+      }}>{i18n.locale  === 'ru' ? 'EN' : 'RU'}</LangSwitch>
     </Right>
   </HeaderRoot>;
 };

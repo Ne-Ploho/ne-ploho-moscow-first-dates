@@ -13,8 +13,8 @@ function StoryTemplate(props) {
 
   const story = i18n.locale === 'ru' ? data.storyRu : data.storyEn;
 
-  const imageUrl = story.image.file.url;
-  const image2xUrl = story.image2x.file.url;
+  const imageUrl = story.image && story.image.file.url;
+  const image2xUrl = story.image2x && story.image2x.file.url;
 
   const prev = stories.find(s => s.contentfulid === story.contentfulid - 1);
   const next = stories.find(s => s.contentfulid === story.contentfulid + 1);

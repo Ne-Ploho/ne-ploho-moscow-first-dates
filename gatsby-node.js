@@ -1,6 +1,7 @@
 const Promise = require('bluebird')
 const path = require('path')
 
+
 const years = [
   1950,
   1966,
@@ -10,14 +11,13 @@ const years = [
 ];
 
 const genders = ['male', 'female', 'non-binary'];
-
 exports.createPages = ({ graphql, actions }) => {
-  const { createPage } = actions
+  const { createPage } = actions;
 
   return new Promise((resolve, reject) => {
-    const storyPage = path.resolve('./src/templates/story.js')
-    const indexPage = path.resolve('./src/templates/yearRange.js')
-    const genderPage = path.resolve('./src/templates/gender.js')
+    const storyPage = path.resolve('./src/templates/story.js');
+    const indexPage = path.resolve('./src/templates/yearRange.js');
+    const genderPage = path.resolve('./src/templates/gender.js');
 
     resolve(
       graphql(
@@ -29,22 +29,26 @@ exports.createPages = ({ graphql, actions }) => {
               }
             }
           }
-          `
+        `
       ).then(result => {
         if (result.errors) {
-          console.log(result.errors)
-          reject(result.errors)
+          console.log(result.errors);
+          reject(result.errors);
         }
 
         years.forEach((fromYear, idx) => {
-          const toYear = years[idx + 1] ? years[idx + 1] - 1 : new Date().getFullYear();
+          const toYear = years[idx + 1]
+            ? years[idx + 1] - 1
+            : new Date().getFullYear();
           createPage({
-          path: `/years/${fromYear}-${toYear}/`,
-          component: indexPage,
-          context: {
-            fromYear, toYear
-          },
-        })})
+            path: `/years/${fromYear}-${toYear}/`,
+            component: indexPage,
+            context: {
+              fromYear,
+              toYear
+            }
+          });
+        });
 
         genders.forEach(gender => {
           createPage({
@@ -52,21 +56,21 @@ exports.createPages = ({ graphql, actions }) => {
             component: genderPage,
             context: {
               gender: gender
-            },
-          })          
-        })
+            }
+          });
+        });
 
-        const stories = result.data.allContentfulStory.nodes
+        const stories = result.data.allContentfulStory.nodes;
         stories.forEach((story, index) => {
           createPage({
             path: `/stories/${story.slug}/`,
             component: storyPage,
             context: {
               slug: story.slug
-            },
-          })
-        })
+            }
+          });
+        });
       })
-    )
-  })
-}
+    );
+  });
+};
