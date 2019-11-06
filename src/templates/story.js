@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components';
-import { graphql, Link, navigate } from 'gatsby'
+import { graphql, Link, navigate } from 'gatsby';
+import Img from 'gatsby-image';
 import { useLingui, Trans } from '@lingui/react';
 import Layout from '../components/Layout'
 import Dialog from '../components/Dialog';
@@ -12,9 +13,6 @@ function StoryTemplate(props) {
   const { i18n } = useLingui();
 
   const story = i18n.locale === 'ru' ? data.storyRu : data.storyEn;
-
-  const imageUrl = story.image && story.image.file.url;
-  const image2xUrl = story.image2x && story.image2x.file.url;
 
   const prev = stories.find(s => s.contentfulid === story.contentfulid - 1);
   const next = stories.find(s => s.contentfulid === story.contentfulid + 1);
@@ -34,13 +32,15 @@ function StoryTemplate(props) {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [prev, next]);
 
+  console.log(story.image.fluid);
+
   return (
     <Layout>
       <Dialog>
-        <Img
-          src={imageUrl}
-          srcSet={`${imageUrl}, ${image2xUrl} 2x`}
+        <StyledImg
+          fluid={story.image.fluid}
           alt={story.description.description}
+          data-aspectratio={story.image.fluid.aspectRatio}
         />
         {i18n.locale !== 'ru' && <Description>{story.description.description}</Description>}
         <Controls>
@@ -54,12 +54,10 @@ function StoryTemplate(props) {
 
 export default StoryTemplate;
 
-const Img = styled.img`
-  width: 100%;
-  min-height: 310px;
-
+const StyledImg = styled(Img)`
+  width: ${p => p['data-aspectratio'] > 1 ? `${p['data-aspectratio'] * 400}px` : 'auto'};
   @media (max-width: 414px) {
-    min-height: auto;
+    width: auto;
   }
 `
 
@@ -94,7 +92,7 @@ const Description = styled.p`
   line-height: 1.6;
   font-size: 0.9em;
   white-space: pre-line;
-  margin-bottom: 0;
+  margin: 1em auto 0;
 `;
 
 export const pageQuery = graphql`
@@ -102,13 +100,8 @@ export const pageQuery = graphql`
     storyEn: contentfulStory(slug: { eq: $slug }, node_locale: { eq: "en" }) {
       contentfulid
       image {
-        file {
-          url
-        }
-      }
-      image2x {
-        file {
-          url
+        fluid(maxHeight: 400, quality: 85) {
+          ...GatsbyContentfulFluid_tracedSVG
         }
       }
       description {
@@ -118,13 +111,8 @@ export const pageQuery = graphql`
     storyRu: contentfulStory(slug: { eq: $slug }, node_locale: { eq: "ru" }) {
       contentfulid
       image {
-        file {
-          url
-        }
-      }
-      image2x {
-        file {
-          url
+        fluid(maxHeight: 400, quality: 85) {
+          ...GatsbyContentfulFluid_tracedSVG
         }
       }
       description {

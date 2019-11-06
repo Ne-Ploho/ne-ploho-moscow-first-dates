@@ -85,7 +85,7 @@ const Body = styled.div`
 `;
 
 const Content = styled.div`
-  width: 464px;
+  min-width: 464px;
   min-height: 300px;
   max-height: 70vh;
   margin: 32px 0;
@@ -96,8 +96,11 @@ const Content = styled.div`
 
   @media (max-width: 414px) {
     width: 100%;
+    margin: 24px 0;
+    padding: 0 24px;
     min-height: 35vh;
     max-height: 60vh;
+    min-width: auto;
   }
 `;
 
