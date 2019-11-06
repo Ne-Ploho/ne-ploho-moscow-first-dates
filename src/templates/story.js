@@ -32,8 +32,6 @@ function StoryTemplate(props) {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [prev, next]);
 
-  console.log(story.image.fluid);
-
   return (
     <Layout>
       <Dialog>
@@ -55,6 +53,7 @@ function StoryTemplate(props) {
 export default StoryTemplate;
 
 const StyledImg = styled(Img)`
+  max-width: 100%;
   width: ${p => p['data-aspectratio'] > 1 ? `${p['data-aspectratio'] * 400}px` : 'auto'};
   @media (max-width: 414px) {
     width: auto;
@@ -87,12 +86,16 @@ const Controls = styled.div`
 `;
 
 const Description = styled.p`
-  max-width: 400px;
+  max-width: 450px;
   color: #EB212E;
   line-height: 1.6;
   font-size: 0.9em;
   white-space: pre-line;
   margin: 1em auto 0;
+
+  @media (max-width: 414px) {
+    font-size: 0.8em;
+  }
 `;
 
 export const pageQuery = graphql`

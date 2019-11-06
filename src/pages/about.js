@@ -120,6 +120,7 @@ const AboutContent = styled.div`
   white-space: pre-line;
   line-height: 1.6;
   font-size: 0.9em;
+  max-width: 500px;
 
   & > p:first-child {
     margin-top: 0;

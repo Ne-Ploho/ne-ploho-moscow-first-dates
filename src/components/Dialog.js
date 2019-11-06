@@ -77,6 +77,7 @@ const Body = styled.div`
   z-index: 2;
   background: #FFF;
   border-radius: 8px;
+  box-shadow: 0px 0px 8px 0px rgba(100, 0, 0, .4);
   ${p => p['data-state'] === 'appear' ? css`animation: ${slideIn} 0.2s ease-out;` : ''}
 
   @media (max-width: 414px) {
@@ -85,12 +86,13 @@ const Body = styled.div`
 `;
 
 const Content = styled.div`
-  min-width: 464px;
-  min-height: 300px;
+  min-width: 414px;
+  max-width: 95vw;
   max-height: 70vh;
   margin: 32px 0;
   padding: 0 32px;
   overflow-y: auto;
+  overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
   box-sizing: border-box;
 
@@ -98,9 +100,8 @@ const Content = styled.div`
     width: 100%;
     margin: 24px 0;
     padding: 0 24px;
-    min-height: 35vh;
-    max-height: 60vh;
     min-width: auto;
+    max-width: 100vw;
   }
 `;
 
@@ -118,5 +119,12 @@ const CloseButton = styled.button`
   & svg {
     width: 100%;
     height: 100%;
+  }
+
+  @media (max-width: 414px) {
+    top: 8px;
+    right: 8px;
+    width: 12px;
+    height: 12px;
   }
 `;
