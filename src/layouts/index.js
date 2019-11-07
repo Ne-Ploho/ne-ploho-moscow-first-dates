@@ -116,7 +116,7 @@ const Main = styled.main`
   width: 100%;
 
   @media (max-width: 414px) {
-    position: fixed;
+    position: absolute;
     bottom: 90px;
     top: 40px;
     left: 0;
