@@ -204,6 +204,8 @@ const StyledYMap = styled(YMap)`
   height: calc(100vh - 120px);
 
   @media (max-width: 414px) {
+    margin-top: 40px;
+    margin-bottom: 90px;
     height: calc(100vh - 130px);
   }
 

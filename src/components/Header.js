@@ -59,6 +59,12 @@ const HeaderRoot = styled.header`
   }
 
   @media (max-width: 414px) {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
+
     padding: 8px 16px;
     font-size: 0.8em;
   }
