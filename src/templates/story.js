@@ -32,9 +32,11 @@ function StoryTemplate(props) {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [prev, next]);
 
+  const image = data.storyEn.image;
+
   const fluid = {
-    ...story.image.fluid,
-    tracedSVG: story.image.fluid.tracedSVG.replace('fill=\'%23d3d3d3\'', 'fill=\'%23f9bedf\'')
+    ...image.fluid,
+    tracedSVG: image.fluid.tracedSVG.replace('fill=\'%23d3d3d3\'', 'fill=\'%23f9bedf\'')
   };
 
   return (
@@ -43,7 +45,7 @@ function StoryTemplate(props) {
         <StyledImg
           fluid={fluid}
           alt={story.description.description}
-          data-aspectratio={story.image.fluid.aspectRatio}
+          data-aspectratio={image.fluid.aspectRatio}
         />
         {i18n.locale !== 'ru' && <Description>{story.description.description}</Description>}
         <Controls>
@@ -118,11 +120,6 @@ export const pageQuery = graphql`
     }
     storyRu: contentfulStory(slug: { eq: $slug }, node_locale: { eq: "ru" }) {
       contentfulid
-      image {
-        fluid(maxHeight: 400, quality: 85) {
-          ...GatsbyContentfulFluid_tracedSVG
-        }
-      }
       description {
         description
       }
