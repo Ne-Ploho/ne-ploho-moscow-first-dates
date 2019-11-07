@@ -32,11 +32,16 @@ function StoryTemplate(props) {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [prev, next]);
 
+  const fluid = {
+    ...story.image.fluid,
+    tracedSVG: story.image.fluid.tracedSVG.replace('fill=\'%23d3d3d3\'', 'fill=\'%23f9bedf\'')
+  };
+
   return (
     <Layout>
       <Dialog>
         <StyledImg
-          fluid={story.image.fluid}
+          fluid={fluid}
           alt={story.description.description}
           data-aspectratio={story.image.fluid.aspectRatio}
         />
