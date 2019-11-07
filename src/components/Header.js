@@ -48,6 +48,7 @@ const HeaderRoot = styled.header`
   justify-content: space-between;
   color: #EB212E;
   font-size: 1em;
+  background: #FFFFFF;
 
   & a {
     text-decoration: none;

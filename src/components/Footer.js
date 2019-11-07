@@ -78,6 +78,7 @@ const FooterRoot = styled.footer`
   justify-content: space-between;
   padding: 10px 24px;
   box-sizing: border-box;
+  background: #FFFFFF;
 
   & a {
     color: #dd5db3;
