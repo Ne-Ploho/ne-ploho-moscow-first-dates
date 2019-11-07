@@ -86,6 +86,9 @@ const FooterRoot = styled.footer`
   }
 
   @media (max-width: 414px) {
+    position: fixed;
+    bottom: 0;
+
     flex-direction: column;
     padding: 8px 16px;
     box-sizing: border-box;
