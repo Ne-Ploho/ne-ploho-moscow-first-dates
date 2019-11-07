@@ -114,4 +114,12 @@ const Main = styled.main`
   position: relative;
   flex: 1 0 auto;
   width: 100%;
+
+  @media (max-width: 414px) {
+    position: fixed;
+    bottom: 90px;
+    top: 40px;
+    left: 0;
+    right: 0;
+  }
 `;

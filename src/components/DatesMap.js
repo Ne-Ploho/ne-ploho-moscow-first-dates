@@ -201,13 +201,7 @@ const StyledYMap = styled(YMap)`
   position: absolute;
   width: 100%;
   flex: 1 0 auto;
-  height: calc(100vh - 120px);
-
-  @media (max-width: 414px) {
-    margin-top: 40px;
-    margin-bottom: 90px;
-    height: calc(100vh - 130px);
-  }
+  height: 100%;
 
   & .map-badge {
     display: inline-block;
