@@ -4,6 +4,7 @@ import { Link, navigate } from 'gatsby';
 import Badge from './Badge';
 import Logo from '../icons/neploho_logo.svg';
 import { Trans } from '@lingui/macro';
+import AboutLink from './AboutLink';
 
 const YearRange = ({ fromYear, toYear, active }) => {
   const url = active ? '/' : `/years/${fromYear}-${toYear}`;
@@ -62,9 +63,12 @@ const Footer = ({ fromYear, toYear, gender }) => {
           </Genders>
         </LegendGenders>
       </Legend>
-      <LogoLink href="https://ne-ploho.com" target="_blank" rel="noopener noreferrer">
-        <StyledLogo />
-      </LogoLink>
+      <AboutLogo>
+        <StyledAboutLink />
+        <LogoLink href="https://ne-ploho.com" target="_blank" rel="noopener noreferrer">
+          <StyledLogo />
+        </LogoLink>
+      </AboutLogo>
     </FooterRoot>
   );
 };
@@ -98,6 +102,18 @@ const FooterRoot = styled.footer`
     box-sizing: border-box;
     width: 100vw;
     height: 90px;
+  }
+`;
+
+const AboutLogo = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+const StyledAboutLink = styled(AboutLink)`
+  display: none;
+  @media (max-width: 414px) {
+    display: block;
   }
 `;
 

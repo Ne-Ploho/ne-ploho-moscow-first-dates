@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { Link } from 'gatsby';
 import { Trans } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
+import AboutLink from './AboutLink';
 
 const Header = ({ fromYear, toYear, gender, location }) => {
   let title = <Trans id="header.title">Карта первых свиданий Москвы</Trans>;
@@ -24,7 +25,7 @@ const Header = ({ fromYear, toYear, gender, location }) => {
   return <HeaderRoot>
     <Title>{title}</Title>
     <Right>
-      <AboutLink to="/about"><Trans id="header.about">О карте</Trans></AboutLink>
+      <StyledAboutLink />
       <LangSwitch href={switchLangUrl} onClick={(e) => {
         e.preventDefault();
         if (window && window.history) {
@@ -85,10 +86,11 @@ const Title = styled.h1`
   text-overflow: ellipsis;
 `;
 
-const AboutLink = styled(Link)`
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
+const StyledAboutLink = styled(AboutLink)`
+  display: block;
+  @media (max-width: 414px) {
+    display: none;
+  }
 `;
 
 const LangSwitch = styled.a`
