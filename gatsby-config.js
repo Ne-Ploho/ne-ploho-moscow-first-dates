@@ -17,7 +17,7 @@ if (!spaceId || !accessToken) {
 }
 
 module.exports = {
-  pathPrefix: '/gatsby-contentful-starter',
+  pathPrefix: '/',
   plugins: [
     'gatsby-plugin-layout',
     'gatsby-plugin-react-helmet',
@@ -30,10 +30,11 @@ module.exports = {
       options: contentfulConfig
     },
     {
-      resolve: 'gatsby-plugin-google-fonts',
+      resolve: 'gatsby-plugin-web-font-loader',
       options: {
-        fonts: ['Montserrat:400,700'],
-        display: 'fallback'
+        google: {
+          families: ['Montserrat:400,700&display=fallback']
+        }
       }
     },
     'gatsby-plugin-styled-components',

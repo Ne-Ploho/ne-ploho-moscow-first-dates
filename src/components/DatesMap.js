@@ -1,29 +1,36 @@
 import * as React from 'react';
-import { YMaps, Map as YMap, Placemark, withYMaps, Polyline } from '@alexkuz/react-yandex-maps';
+import {
+  YMaps,
+  Map as YMap,
+  Placemark,
+  withYMaps,
+  Polyline
+} from 'react-yandex-maps';
 import styled from 'styled-components';
 import { navigate } from 'gatsby';
+import Logo from '../icons/neploho_logo.svg';
 import Badge1950_1965 from '!!raw-loader!../icons/badge-1950-1965.svg';
 import Badge1966_1980 from '!!raw-loader!../icons/badge-1966-1980.svg';
 import Badge1981_1995 from '!!raw-loader!../icons/badge-1981-1995.svg';
 import Badge1996_2010 from '!!raw-loader!../icons/badge-1996-2010.svg';
 import Badge2011_2019 from '!!raw-loader!../icons/badge-2011-2019.svg';
 
+const Y_LIBS =
+  'Map,Placemark,projection.Cartesian,MapType,Layer,layer.storage,mapType.storage,templateLayoutFactory';
 
-const Y_LIBS = 'Map,Placemark,projection.Cartesian,MapType,Layer,layer.storage,mapType.storage,templateLayoutFactory';
-
-const getBadge = (year) => {
-   if (year >= 2011) {
-     return Badge2011_2019;
-   } else if (year >= 1996) {
-     return Badge1996_2010;
-   } else if (year >= 1981) {
-     return Badge1981_1995;
-   } else if (year >= 1966) {
-     return Badge1966_1980;
-   } else {
-     return Badge1950_1965;
-   }
-}
+const getBadge = year => {
+  if (year >= 2011) {
+    return Badge2011_2019;
+  } else if (year >= 1996) {
+    return Badge1996_2010;
+  } else if (year >= 1981) {
+    return Badge1981_1995;
+  } else if (year >= 1966) {
+    return Badge1966_1980;
+  } else {
+    return Badge1950_1965;
+  }
+};
 
 const MAP_WIDTH = 6783;
 const MAP_HEIGHT = 8007;
@@ -36,8 +43,8 @@ const LOCATION_FACTOR = 32000;
 function scaleLocation(loc) {
   return [
     (loc[0] - CENTER[0]) * LOCATION_FACTOR + CENTER[0],
-    (loc[1] - CENTER[1]) * LOCATION_FACTOR + CENTER[1],
-  ]
+    (loc[1] - CENTER[1]) * LOCATION_FACTOR + CENTER[1]
+  ];
 }
 
 // we need this lo load ymaps before rendering map component,
@@ -58,40 +65,39 @@ const DatesMap = ({ stories }) => {
   const [map, setMap] = React.useState(null);
   const [mapType, setMapType] = React.useState(null);
 
-//   const [poly, setPoly] = React.useState([]);
-// 
-//   React.useEffect(() => {
-//     if (map) {
-//       const handleClick = e => {
-//         const coords = e.get('coords');
-//         setPoly([...poly, coords])
-//       };
-//       map.events.add('click', handleClick)
-// 
-//       return () => map.events.remove('click', handleClick);
-//     }
-//   }, [map, poly])
-// 
-//   console.log(JSON.stringify(poly.map(c => {
-//     return [
-//       (c[0] - CENTER[0]) / LOCATION_FACTOR + CENTER[0],
-//       (c[1] - CENTER[1]) / LOCATION_FACTOR + CENTER[1],
-//     ]
-//   }).map(c => {
-//     return [
-//       parseFloat(c[0].toPrecision(6)),
-//       parseFloat(c[1].toPrecision(6))
-//     ]
-//   })));
+  //   const [poly, setPoly] = React.useState([]);
+  //
+  //   React.useEffect(() => {
+  //     if (map) {
+  //       const handleClick = e => {
+  //         const coords = e.get('coords');
+  //         setPoly([...poly, coords])
+  //       };
+  //       map.events.add('click', handleClick)
+  //
+  //       return () => map.events.remove('click', handleClick);
+  //     }
+  //   }, [map, poly])
+  //
+  //   console.log(JSON.stringify(poly.map(c => {
+  //     return [
+  //       (c[0] - CENTER[0]) / LOCATION_FACTOR + CENTER[0],
+  //       (c[1] - CENTER[1]) / LOCATION_FACTOR + CENTER[1],
+  //     ]
+  //   }).map(c => {
+  //     return [
+  //       parseFloat(c[0].toPrecision(6)),
+  //       parseFloat(c[1].toPrecision(6))
+  //     ]
+  //   })));
 
-  const options = React.useMemo(
-    () => {
-      const bounds = [
-        [MAP_HEIGHT / 2 - WORLD_SIZE, -MAP_WIDTH / 2],
-        [MAP_HEIGHT / 2, WORLD_SIZE - MAP_WIDTH / 2]
-      ];
+  const options = React.useMemo(() => {
+    const bounds = [
+      [MAP_HEIGHT / 2 - WORLD_SIZE, -MAP_WIDTH / 2],
+      [MAP_HEIGHT / 2, WORLD_SIZE - MAP_WIDTH / 2]
+    ];
 
-      return {
+    return {
       suppressMapOpenBlock: true,
       avoidFractionalZoom: false,
       projection:
@@ -102,10 +108,8 @@ const DatesMap = ({ stories }) => {
         [-MAP_HEIGHT / 2, -MAP_WIDTH / 2],
         [MAP_HEIGHT / 2, MAP_WIDTH / 2]
       ]
-    }
-  },
-    [ymaps]
-  );
+    };
+  }, [ymaps]);
 
   React.useEffect(() => {
     if (!ymaps) return;
@@ -129,78 +133,95 @@ const DatesMap = ({ stories }) => {
     setMapType(_mapType);
   }, [ymaps]);
 
-  const svgLayout = React.useMemo(() =>
-    ymaps && ymaps.templateLayoutFactory.createClass('<div data-id="{{ properties.id }}" class="map-badge map-badge-{{ properties.gender }}">$[properties.badge]<div class="badge-year">$[properties.iconContent]</div></div>'),
+  const svgLayout = React.useMemo(
+    () =>
+      ymaps &&
+      ymaps.templateLayoutFactory.createClass(
+        '<div data-id="{{ properties.id }}" class="map-badge map-badge-{{ properties.gender }}">$[properties.badge]<div class="badge-year">$[properties.iconContent]</div></div>'
+      ),
     [ymaps]
   );
 
   return (
-    <YMaps
-      query={{
-        apikey: '92659bc7-f871-4646-9da3-b90f42da0c4c',
-        load: Y_LIBS
-      }}
-      hash="mfd"
-    >
-      <OnMapLoad onMapLoad={setYmaps} />
-      {mapType && <StyledYMap
-        instanceRef={setMap}
-        state={{
-          center: CENTER,
-          zoom: 6,
-          type: 'datesMap',
-          controls: []
+    <DatesMapRoot>
+      <LogoBack />
+      <YMaps
+        preload
+        query={{
+          apikey: '92659bc7-f871-4646-9da3-b90f42da0c4c',
+          load: Y_LIBS
         }}
-        options={options}
+        hash="mfd"
       >
-        {/*<Polyline
+        <OnMapLoad onMapLoad={setYmaps} />
+        {mapType && (
+          <StyledYMap
+            instanceRef={setMap}
+            state={{
+              center: CENTER,
+              zoom: 6,
+              type: 'datesMap',
+              controls: []
+            }}
+            options={options}
+          >
+            {/*<Polyline
           geometry={poly}
           options={{ strokeColor: '#000', strokeWidth: 2 }}
         />*/}
-        {stories.map((s, idx) => {
-          return (
-            <Placemark
-              key={idx}
-              geometry={scaleLocation([s.location.lat, s.location.lon])}
-              properties={{
-                badge: getBadge(parseInt(s.year)),
-                iconContent: s.year,
-                gender: s.gender,
-                id: s.contentfulid
-              }}
-              options={{
-                iconLayout: svgLayout,
-                iconShape: {
-                    type: 'Rectangle',
-                    // Прямоугольник описывается в виде двух точек - верхней левой и нижней правой.
-                    coordinates: [
-                        [-35, -16], [35, 16]
-                    ]
-                }
-              }}
-              onClick={() => {
-                navigate(`/stories/${s.slug}`)
-              }}
-              onMouseEnter={e => {
-                e.get('target').properties.set('gender', s.gender === 'male' ? 'female' : 'male')
-              }}
-              onMouseLeave={e => {
-                e.get('target').properties.set('gender', s.gender)
-              }}
-            />
-          );
-        })}
-      </StyledYMap>}
-    </YMaps>
+            {stories.map((s, idx) => {
+              return (
+                <Placemark
+                  key={idx}
+                  geometry={scaleLocation([s.location.lat, s.location.lon])}
+                  properties={{
+                    badge: getBadge(parseInt(s.year)),
+                    iconContent: s.year,
+                    gender: s.gender,
+                    id: s.contentfulid
+                  }}
+                  options={{
+                    iconLayout: svgLayout,
+                    iconShape: {
+                      type: 'Rectangle',
+                      coordinates: [[-35, -16], [35, 16]]
+                    }
+                  }}
+                  onClick={() => {
+                    navigate(`/stories/${s.slug}`);
+                  }}
+                  onMouseEnter={e => {
+                    e.get('target').properties.set(
+                      'gender',
+                      s.gender === 'male' ? 'female' : 'male'
+                    );
+                  }}
+                  onMouseLeave={e => {
+                    e.get('target').properties.set('gender', s.gender);
+                  }}
+                />
+              );
+            })}
+          </StyledYMap>
+        )}
+      </YMaps>
+    </DatesMapRoot>
   );
 };
 
 export default DatesMap;
 
+const DatesMapRoot = styled.div`
+  position: absolute;
+  flex: 1 0 auto;
+  width: 100%;
+  height: 100%;
+  background-color: #fde3f4;
+`;
+
 const StyledYMap = styled(YMap)`
   position: absolute;
   width: 100%;
-  flex: 1 0 auto;
   height: 100%;
 
   & .map-badge {
@@ -218,7 +239,7 @@ const StyledYMap = styled(YMap)`
     left: 0;
     width: 100%;
     height: 100%;
-    filter: drop-shadow( -1px -1px 2px rgba(100, 0, 0, .6));
+    filter: drop-shadow(-1px -1px 2px rgba(100, 0, 0, 0.6));
   }
 
   & .map-badge svg .badge-body {
@@ -226,7 +247,7 @@ const StyledYMap = styled(YMap)`
   }
 
   & .map-badge.map-badge-male svg .badge-body {
-    fill: #FFFFFF;
+    fill: #ffffff;
     stroke: none;
   }
 
@@ -238,15 +259,24 @@ const StyledYMap = styled(YMap)`
   }
 
   & .map-badge.map-badge-male .badge-year {
-    color: #EB212E;
+    color: #eb212e;
   }
 
   & .map-badge.map-badge-female svg .badge-body {
-    fill: #EB212E;
+    fill: #eb212e;
     stroke: none;
   }
 
   & .map-badge.map-badge-female .badge-year {
-    color: #FFFFFF;
+    color: #ffffff;
   }
+`;
+
+const LogoBack = styled(Logo)`
+  position: absolute;
+  top: 40%;
+  height: 20%;
+  left: 20%;
+  width: 60%;
+  color: #ffd4f0;
 `;
