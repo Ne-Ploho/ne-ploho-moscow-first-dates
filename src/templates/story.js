@@ -47,11 +47,11 @@ function StoryTemplate(props) {
           alt={story.description.description}
           data-aspectratio={image.fluid.aspectRatio}
         />
-        {i18n.locale !== 'ru' && <Description>{story.description.description}</Description>}
         <Controls>
-          {prev && <Link className="prev-link" to={`/stories/${prev.slug}`}><Trans id="story.back">Назад</Trans></Link>}
-          {next && <Link className="next-link" to={`/stories/${next.slug}`}><Trans id="story.forward">Вперед</Trans></Link>}
+          {prev && <Link className="prev-link" to={`/stories/${prev.slug}`}>{'< '}<Trans id="story.back">Назад</Trans></Link>}
+          {next && <Link className="next-link" to={`/stories/${next.slug}`}><Trans id="story.forward">Вперед</Trans>{' >'}</Link>}
         </Controls>
+        {i18n.locale !== 'ru' && <Description>{story.description.description}</Description>}
       </Dialog>
     </Layout>
   )

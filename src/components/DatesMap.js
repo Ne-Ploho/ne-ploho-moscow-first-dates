@@ -6,7 +6,7 @@ import {
   withYMaps,
   Polyline
 } from 'react-yandex-maps';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import { navigate } from 'gatsby';
 import Logo from '../icons/neploho_logo.svg';
 import Badge1950_1965 from '!!raw-loader!../icons/badge-1950-1965.svg';
@@ -14,6 +14,7 @@ import Badge1966_1980 from '!!raw-loader!../icons/badge-1966-1980.svg';
 import Badge1981_1995 from '!!raw-loader!../icons/badge-1981-1995.svg';
 import Badge1996_2010 from '!!raw-loader!../icons/badge-1996-2010.svg';
 import Badge2011_2019 from '!!raw-loader!../icons/badge-2011-2019.svg';
+import useMapEditor from '../hooks/useMapEditor';
 
 const Y_LIBS =
   'Map,Placemark,projection.Cartesian,MapType,Layer,layer.storage,mapType.storage,templateLayoutFactory';
@@ -64,32 +65,15 @@ const DatesMap = ({ stories }) => {
   const [ymaps, setYmaps] = React.useState(null);
   const [map, setMap] = React.useState(null);
   const [mapType, setMapType] = React.useState(null);
+  const [tilesLoaded, setTilesLoaded] = React.useState(false);
+  const [firstRender, setFirstRender] = React.useState(true);
 
-  //   const [poly, setPoly] = React.useState([]);
-  //
-  //   React.useEffect(() => {
-  //     if (map) {
-  //       const handleClick = e => {
-  //         const coords = e.get('coords');
-  //         setPoly([...poly, coords])
-  //       };
-  //       map.events.add('click', handleClick)
-  //
-  //       return () => map.events.remove('click', handleClick);
-  //     }
-  //   }, [map, poly])
-  //
-  //   console.log(JSON.stringify(poly.map(c => {
-  //     return [
-  //       (c[0] - CENTER[0]) / LOCATION_FACTOR + CENTER[0],
-  //       (c[1] - CENTER[1]) / LOCATION_FACTOR + CENTER[1],
-  //     ]
-  //   }).map(c => {
-  //     return [
-  //       parseFloat(c[0].toPrecision(6)),
-  //       parseFloat(c[1].toPrecision(6))
-  //     ]
-  //   })));
+  const editor = useMapEditor(map, c => {
+    return [
+      (c[0] - CENTER[0]) / LOCATION_FACTOR + CENTER[0],
+      (c[1] - CENTER[1]) / LOCATION_FACTOR + CENTER[1]
+    ];
+  });
 
   const options = React.useMemo(() => {
     const bounds = [
@@ -112,6 +96,23 @@ const DatesMap = ({ stories }) => {
   }, [ymaps]);
 
   React.useEffect(() => {
+    if (tilesLoaded && stories.length > 0) {
+      const to = setTimeout(() => {
+        setFirstRender(false);
+      }, 1500);
+
+      return () => clearTimeout(to);
+    }
+  }, [tilesLoaded, stories.length]);
+
+  React.useEffect(() => {
+    if (stories.length === 0) {
+      console.log('NO STORIES')
+      setFirstRender(true);
+    }
+  }, [stories.length]);
+
+  React.useEffect(() => {
     if (!ymaps) return;
 
     const Layer = function() {
@@ -120,6 +121,12 @@ const DatesMap = ({ stories }) => {
       layer.getZoomRange = function() {
         return ymaps.vow.resolve([6, 9]);
       };
+
+      layer.events.add('tileloadchange', (e) => {
+        if (e.get('readyTileNumber') === e.get('totalTileNumber')) {
+          setTilesLoaded(true);
+        }
+      });
 
       return layer;
     };
@@ -134,11 +141,48 @@ const DatesMap = ({ stories }) => {
   }, [ymaps]);
 
   const svgLayout = React.useMemo(
-    () =>
-      ymaps &&
-      ymaps.templateLayoutFactory.createClass(
-        '<div data-id="{{ properties.id }}" class="map-badge map-badge-{{ properties.gender }}">$[properties.badge]<div class="badge-year">$[properties.iconContent]</div></div>'
-      ),
+    () => {
+      if (ymaps) {
+        const markLayout = ymaps.templateLayoutFactory.createClass(
+          `
+            <div
+              data-id="{{ properties.id }}"
+              class="map-badge map-badge-{{ properties.gender }} {{ properties.className }}"
+              style="animation-delay: {{ properties.delay }}s"
+            >
+              $[properties.badge]
+              <div class="badge-year">
+                $[properties.iconContent]
+              </div>
+            </div>
+          `,
+          {
+            build: function() {
+              markLayout.superclass.build.call(this);
+              const element = this.getParentElement().getElementsByClassName('map-badge')[0];
+              const obj = this.getData().geoObject;
+
+              obj.events.add('mouseenter', () => {
+                element.classList.add('map-badge-hover');
+              });
+              obj.events.add('mouseleave', () => {
+                element.classList.remove('map-badge-hover');
+              });
+              obj.events.add('click', () => {
+                element.classList.add('map-badge-loading');
+                element.classList.remove('map-badge-hover');
+                element.getElementsByClassName('badge-year')[0].innerHTML = '<b></b><b></b><b></b>';
+              })
+
+              element
+            }
+          }
+        );
+
+        return markLayout;
+      }
+      return undefined;
+    },
     [ymaps]
   );
 
@@ -165,11 +209,8 @@ const DatesMap = ({ stories }) => {
             }}
             options={options}
           >
-            {/*<Polyline
-          geometry={poly}
-          options={{ strokeColor: '#000', strokeWidth: 2 }}
-        />*/}
-            {stories.map((s, idx) => {
+            {editor}
+            {!editor && tilesLoaded && stories.map((s, idx) => {
               return (
                 <Placemark
                   key={idx}
@@ -178,7 +219,9 @@ const DatesMap = ({ stories }) => {
                     badge: getBadge(parseInt(s.year)),
                     iconContent: s.year,
                     gender: s.gender,
-                    id: s.contentfulid
+                    id: s.contentfulid,
+                    delay: Math.random(),
+                    className: firstRender ? '' : 'map-badge-rendered'
                   }}
                   options={{
                     iconLayout: svgLayout,
@@ -189,15 +232,6 @@ const DatesMap = ({ stories }) => {
                   }}
                   onClick={() => {
                     navigate(`/stories/${s.slug}`);
-                  }}
-                  onMouseEnter={e => {
-                    e.get('target').properties.set(
-                      'gender',
-                      s.gender === 'male' ? 'female' : 'male'
-                    );
-                  }}
-                  onMouseLeave={e => {
-                    e.get('target').properties.set('gender', s.gender);
                   }}
                 />
               );
@@ -210,6 +244,26 @@ const DatesMap = ({ stories }) => {
 };
 
 export default DatesMap;
+
+const badgeScaleIn = keyframes`
+  from {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.6);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+`;
+
+const bounce = keyframes`
+  0%, 80%, 100% {
+    transform: scale(0);
+  }
+  40% {
+    transform: scale(1);
+  }
+`
 
 const DatesMapRoot = styled.div`
   position: absolute;
@@ -230,6 +284,8 @@ const StyledYMap = styled(YMap)`
     transform: translate(-50%, -50%);
     height: 21px;
     text-align: center;
+    animation: ${badgeScaleIn} 0.2s ease-out;
+    animation-fill-mode: both;
   }
 
   & .map-badge svg {
@@ -243,11 +299,18 @@ const StyledYMap = styled(YMap)`
   }
 
   & .map-badge svg .badge-body {
-    transition: fill 1s ease-out;
+    transition: fill 0.3s ease-out;
   }
 
-  & .map-badge.map-badge-male svg .badge-body {
+  & .map-badge.map-badge-male svg .badge-body,
+  & .map-badge.map-badge-hover.map-badge-female svg .badge-body {
     fill: #ffffff;
+    stroke: none;
+  }
+
+  & .map-badge.map-badge-female svg .badge-body,
+  & .map-badge.map-badge-hover.map-badge-male svg .badge-body {
+    fill: #eb212e;
     stroke: none;
   }
 
@@ -256,19 +319,65 @@ const StyledYMap = styled(YMap)`
     z-index: 1;
     font-weight: bold;
     padding: 1px 14px 0;
+    transition: color 0.3s ease-out;
+    white-space: nowrap;
   }
 
-  & .map-badge.map-badge-male .badge-year {
+  & .map-badge.map-badge-male .badge-year,
+  & .map-badge.map-badge-hover.map-badge-female .badge-year {
     color: #eb212e;
   }
 
-  & .map-badge.map-badge-female svg .badge-body {
-    fill: #eb212e;
-    stroke: none;
+  & .map-badge.map-badge-female .badge-year,
+  & .map-badge.map-badge-hover.map-badge-male .badge-year {
+    color: #ffffff;
   }
 
-  & .map-badge.map-badge-female .badge-year {
-    color: #ffffff;
+  & .map-badge.map-badge-rendered {
+    animation: none;
+  }
+
+  & .map-badge-loading b {
+    background-color: #FFFFFF;
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 100%;
+    animation: ${bounce} 1.4s infinite ease-in-out both;
+  }
+
+  & .map-badge-male.map-badge-loading b {
+    background-color: #eb212e;
+  }
+
+  & .map-badge-loading b:first-child {
+    animation-delay: -0.16s;
+  }
+
+  & .map-badge-loading b:last-child {
+    animation-delay: 0.16s;
+  }
+
+  .dot {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-color: #FFFFFF;
+    opacity: 0.6;
+    position: absolute;
+    top: 0;
+    left: 0;
+    animation: sk-bounce 2s infinite cubic-bezier(0.455, 0.03, 0.515, 0.955); 
+  }
+
+  .sk-bounce-dot:nth-child(2) { animation-delay: -1.0s; }
+
+  @keyframes sk-bounce {
+    0%, 100% {
+      transform: scale(0);
+    } 45%, 55% {
+      transform: scale(1); 
+    } 
   }
 `;
 
