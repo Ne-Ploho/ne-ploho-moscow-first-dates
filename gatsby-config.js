@@ -54,6 +54,13 @@ module.exports = {
       options: {
         color: '#EB212E'
       }
+    },
+    {
+      resolve: 'gatsby-plugin-google-analytics',
+      options: {
+        trackingId: 'UA-153162555-1',
+        anonymize: true
+      }
     }
   ]
 };
