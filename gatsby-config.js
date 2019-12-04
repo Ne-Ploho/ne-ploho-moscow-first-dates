@@ -18,6 +18,9 @@ if (!spaceId || !accessToken) {
 
 module.exports = {
   pathPrefix: '/',
+  siteMetadata: {
+    siteUrl: 'https://map.ne-ploho.com'
+  },
   plugins: [
     'gatsby-plugin-layout',
     'gatsby-plugin-react-helmet',
@@ -62,6 +65,8 @@ module.exports = {
         trackingId: 'UA-153162555-1',
         anonymize: true
       }
-    }
+    },
+    'gatsby-plugin-robots-txt',
+    'gatsby-plugin-sitemap'
   ]
 };
