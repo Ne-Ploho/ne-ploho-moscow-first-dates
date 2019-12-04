@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { Helmet } from 'react-helmet';
 import { t } from '@lingui/macro';
 import { useLingui } from '@lingui/react';
-import thumbnail from '../images/thumbnail.jpg';
+import thumbnail from '../images/thumbnail.png';
 import icon48 from '../images/48x48.png';
 
 function Layout(props) {
