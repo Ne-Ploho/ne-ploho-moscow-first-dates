@@ -92,9 +92,8 @@ function AboutTemplate(props) {
                   <div>
                     {person.links &&
                       person.links.map(link => (
-                        <div>
+                        <div key={link}>
                           <a
-                            key={link}
                             target="_blank"
                             rel="noopener noreferrer"
                             href={'https://' + link}
@@ -108,6 +107,18 @@ function AboutTemplate(props) {
               );
             })}
           </p>
+          <SiteBy>
+            <Trans id="about.siteby">
+              Сайт собрал{' '}
+              <a
+                target="_blank"
+                rel="noopener noreferrer"
+                href={`mailto:alexkuz@gmail.com?subject=${encodeURIComponent('[First Dates of Moscow] ')}`}
+              >
+                Александр Кузнецов
+              </a>
+            </Trans>
+          </SiteBy>
         </AboutContent>
       </Dialog>
     </Layout>
@@ -156,6 +167,13 @@ const StoryLink = styled(Link)`
   padding: 0 5px;
   font-weight: bold;
   margin-right: 5px;
+`;
+
+const SiteBy = styled.p`
+  margin-top: 50px;
+  & > a {
+    font-weight: bold;
+  }
 `;
 
 export const pageQuery = graphql`

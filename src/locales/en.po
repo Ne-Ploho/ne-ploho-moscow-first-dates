@@ -13,11 +13,11 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
-#: src/pages/about.js:20
+#: src/pages/about.js:22
 msgid "about.description"
 msgstr "<0>Map of the first dates of Moscow</0> consists of real stories told by people of different ages and different backgrounds. We talked with random people on the streets and on the Internet, we asked our friends and family. We got very different reactions: some people told us every little detail, while others didn’t remember their first date at all. One person said we should be ashamed to ask such intimate questions and refused to talk. Some people managed to start relationship with no dates at all, some managed to go on a date without meeting in person. "
 
-#: src/pages/about.js:41
+#: src/pages/about.js:43
 msgid "about.interviewees.column.1"
 msgstr ""
 "4 Tatianas\n"
@@ -38,7 +38,7 @@ msgstr ""
 "1 Evdokiya 1 Zhanna\n"
 "1 Larisa"
 
-#: src/pages/about.js:63
+#: src/pages/about.js:51
 msgid "about.interviewees.column.2"
 msgstr ""
 "1 Aglaya\n"
@@ -59,7 +59,7 @@ msgstr ""
 "1 Vitya\n"
 "1 LaugHhH"
 
-#: src/pages/about.js:87
+#: src/pages/about.js:62
 msgid "about.interviewees.stats"
 msgstr ""
 "9 people didn’t say their names.\n"
@@ -68,35 +68,39 @@ msgstr ""
 "6 people never had one.\n"
 "3 people got too emotional and refused to talk."
 
-#: src/pages/about.js:33
+#: src/pages/about.js:35
 msgid "about.interviewees.title"
 msgstr "People who went on a date on this map:"
 
-#: src/pages/about.js:97
+#: src/pages/about.js:72
 msgid "about.interviewers.title"
 msgstr "People who asked about dates:"
 
-#: src/pages/about.js:16
+#: src/pages/about.js:112
+msgid "about.siteby"
+msgstr "Site by <0>Alexander Kuznetsov</0>"
+
+#: src/pages/about.js:18
 msgid "about.title"
 msgstr "About"
 
-#: src/components/Layout.js:13
+#: src/components/Layout.js:15
 msgid "app.description"
 msgstr "First date stories told by people of different ages and different backgrounds"
 
-#: src/components/Layout.js:12
+#: src/components/Layout.js:14
 msgid "app.title"
 msgstr "First dates of Moscow"
 
-#: src/components/Footer.js:78
+#: src/components/Footer.js:58
 msgid "footer.genders.female"
 msgstr "Woman"
 
-#: src/components/Footer.js:89
+#: src/components/Footer.js:61
 msgid "footer.genders.male"
 msgstr "Man"
 
-#: src/components/Footer.js:67
+#: src/components/Footer.js:54
 msgid "footer.genders.title"
 msgstr "Respondent’s gender"
 
@@ -108,30 +112,30 @@ msgstr "Women"
 msgid "genderPage.male.title"
 msgstr "Men"
 
-#: src/components/Header.js:24
+#: src/components/AboutLink.js:8
 msgid "header.about"
 msgstr "About"
 
-#: src/components/Header.js:7
+#: src/components/Header.js:9
 msgid "header.title"
 msgstr "First dates of Moscow"
 
-#: src/components/Header.js:13
+#: src/components/Header.js:17
 msgid "header.title.female"
 msgstr "<0>First dates of Moscow:</0> <1>Women</1>"
 
-#: src/components/Header.js:11
+#: src/components/Header.js:15
 msgid "header.title.male"
 msgstr "<0>First dates of Moscow:</0> <1>Men</1>"
 
-#: src/components/Header.js:16
+#: src/components/Header.js:20
 msgid "header.title.years"
 msgstr "<0>First dates of Moscow:</0> <1>{fromYear} - {toYear}</1>"
 
-#: src/templates/story.js:47
+#: src/templates/story.js:51
 msgid "story.back"
 msgstr "Back"
 
-#: src/templates/story.js:48
+#: src/templates/story.js:52
 msgid "story.forward"
 msgstr "Forward"
