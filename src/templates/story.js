@@ -1,9 +1,9 @@
-import React from 'react'
+import React from 'react';
 import styled from 'styled-components';
 import { graphql, Link, navigate } from 'gatsby';
 import Img from 'gatsby-image';
 import { useLingui, Trans } from '@lingui/react';
-import Layout from '../components/Layout'
+import Layout from '../components/Layout';
 import Dialog from '../components/Dialog';
 
 function StoryTemplate(props) {
@@ -25,7 +25,7 @@ function StoryTemplate(props) {
       } else if (next && e.key === 'ArrowRight') {
         navigate(`/stories/${next.slug}`);
       }
-    }
+    };
 
     window.addEventListener('keydown', handleKeyDown);
 
@@ -34,9 +34,14 @@ function StoryTemplate(props) {
 
   const image = data.storyEn.image;
 
+  const interviewer = story.interviewer[0];
+
   const fluid = {
     ...image.fluid,
-    tracedSVG: image.fluid.tracedSVG.replace('fill=\'%23d3d3d3\'', 'fill=\'%23f9bedf\'')
+    tracedSVG: image.fluid.tracedSVG.replace(
+      "fill='%23d3d3d3'",
+      "fill='%23f9bedf'"
+    )
   };
 
   return (
@@ -48,33 +53,62 @@ function StoryTemplate(props) {
           data-aspectratio={image.fluid.aspectRatio}
         />
         <Controls>
-          {prev && <Link className="prev-link" to={`/stories/${prev.slug}`}>{'< '}<Trans id="story.back">Назад</Trans></Link>}
-          {next && <Link className="next-link" to={`/stories/${next.slug}`}><Trans id="story.forward">Вперед</Trans>{' >'}</Link>}
+          {prev && (
+            <Link className="prev-link" to={`/stories/${prev.slug}`}>
+              {'< '}
+              <Trans id="story.back">Назад</Trans>
+            </Link>
+          )}
+          {interviewer && (
+            <a
+              href={'https://' + interviewer.links[0]}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {interviewer.name}
+            </a>
+          )}
+          {next && (
+            <Link className="next-link" to={`/stories/${next.slug}`}>
+              <Trans id="story.forward">Вперед</Trans>
+              {' >'}
+            </Link>
+          )}
         </Controls>
-        {i18n.locale !== 'ru' && <Description>{story.description.description}</Description>}
+        {i18n.locale !== 'ru' && (
+          <Description>{story.description.description}</Description>
+        )}
       </Dialog>
     </Layout>
-  )
+  );
 }
 
 export default StoryTemplate;
 
 const StyledImg = styled(Img)`
   max-width: 100%;
-  width: ${p => p['data-aspectratio'] > 1 ? `${p['data-aspectratio'] * 400}px` : 'auto'};
+  width: ${p =>
+    p['data-aspectratio'] > 1 ? `${p['data-aspectratio'] * 400}px` : 'auto'};
   @media (max-width: 414px) {
     width: auto;
   }
-`
+`;
 
 const Controls = styled.div`
   margin-top: 16px;
   height: 16px;
   line-height: 1;
+  display: flex;
+  justify-content: space-between;
+
+  & b {
+    color: #eb212e;
+    font-size: 0.9em;
+  }
 
   & a {
     font-size: 0.9em;
-    color: #EB212E;
+    color: #eb212e;
     text-decoration: none;
     font-weight: bold;
   }
@@ -82,23 +116,15 @@ const Controls = styled.div`
   & a:hover {
     text-decoration: underline;
   }
-
-  & .prev-link {
-    float: left;
-  }
-
-  & .next-link {
-    float: right;
-  }
 `;
 
 const Description = styled.p`
   max-width: 450px;
-  color: #EB212E;
+  color: #eb212e;
   line-height: 1.6;
   font-size: 0.9em;
   white-space: pre-line;
-  margin: 1em auto 0;
+  margin: 2em auto 0;
 
   @media (max-width: 414px) {
     font-size: 0.8em;
@@ -117,11 +143,19 @@ export const pageQuery = graphql`
       description {
         description
       }
+      interviewer {
+        name
+        links
+      }
     }
     storyRu: contentfulStory(slug: { eq: $slug }, node_locale: { eq: "ru" }) {
       contentfulid
       description {
         description
+      }
+      interviewer {
+        name
+        links
       }
     }
     allContentfulStory {
@@ -138,4 +172,4 @@ export const pageQuery = graphql`
       }
     }
   }
-`
+`;
