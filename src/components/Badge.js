@@ -55,10 +55,6 @@ const BadgeRoot = styled(Link)`
 
   text-decoration: ${p => p['data-active'] ? 'underline' : 'none'};
 
-  &:hover {
-    text-decoration: underline;
-  }
-
   & .badge-body {
     fill: ${p => (p['data-inverted'] ? '#FFFFFF' : '#EB212E')};
     stroke: #eb212e;

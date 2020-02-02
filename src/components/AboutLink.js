@@ -15,10 +15,4 @@ const AboutLinkRoot = styled(Link)`
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-
-  text-decoration: none;
-
-  &:hover {
-    text-decoration: underline;
-  }
 `;

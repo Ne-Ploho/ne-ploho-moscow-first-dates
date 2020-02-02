@@ -151,14 +151,6 @@ const AboutContent = styled.div`
     width: 50%;
     vertical-align: top;
   }
-
-  & a {
-    text-decoration: none;
-  }
-
-  & a:hover {
-    text-decoration: underline;
-  }
 `;
 
 const StoryLink = styled(Link)`

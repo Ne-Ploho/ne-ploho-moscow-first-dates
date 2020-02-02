@@ -109,12 +109,7 @@ const Controls = styled.div`
   & a {
     font-size: 0.9em;
     color: #eb212e;
-    text-decoration: none;
     font-weight: bold;
-  }
-
-  & a:hover {
-    text-decoration: underline;
   }
 `;
 

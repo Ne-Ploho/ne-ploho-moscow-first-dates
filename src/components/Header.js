@@ -52,12 +52,7 @@ const HeaderRoot = styled.header`
   background: #FFFFFF;
 
   & a {
-    text-decoration: none;
     text-transform: uppercase;
-
-    &:hover {
-      text-decoration: underline;
-    }    
   }
 
   @media (max-width: 414px) {

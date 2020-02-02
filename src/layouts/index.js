@@ -22,6 +22,15 @@ const GlobalStyle = createGlobalStyle`
 
   a {
     color: currentColor;
+    text-decoration: none;
+  }
+
+  & a[href^="http"] {
+    text-decoration: underline;
+  }
+
+  & a:hover {
+    text-decoration: underline;
   }
 `;
 
