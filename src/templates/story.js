@@ -54,13 +54,14 @@ function StoryTemplate(props) {
         />
         <Controls>
           {prev && (
-            <Link className="prev-link" to={`/stories/${prev.slug}`}>
+            <Link className="nav prev-link" to={`/stories/${prev.slug}`}>
               {'< '}
               <Trans id="story.back">Назад</Trans>
             </Link>
           )}
           {interviewer && (
             <a
+              className="interviewer"
               href={'https://' + interviewer.links[0]}
               target="_blank"
               rel="noopener noreferrer"
@@ -69,7 +70,7 @@ function StoryTemplate(props) {
             </a>
           )}
           {next && (
-            <Link className="next-link" to={`/stories/${next.slug}`}>
+            <Link className="nav next-link" to={`/stories/${next.slug}`}>
               <Trans id="story.forward">Вперед</Trans>
               {' >'}
             </Link>
@@ -100,16 +101,25 @@ const Controls = styled.div`
   line-height: 1;
   display: flex;
   justify-content: space-between;
-
-  & b {
-    color: #eb212e;
-    font-size: 0.9em;
-  }
+  font-size: 0.9em;
 
   & a {
-    font-size: 0.9em;
     color: #eb212e;
     font-weight: bold;
+  }
+
+  & .nav {
+    white-space: nowrap;
+  }
+
+  & .interviewer {
+    margin: 0 20px;
+    text-align: center;
+  }
+
+  @media (max-width: 414px) {
+    font-size: 0.8em;
+    line-height: 1.3em;
   }
 `;
 
