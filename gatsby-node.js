@@ -7,7 +7,8 @@ const years = [
   1966,
   1981,
   1996,
-  2011
+  2011,
+  2020
 ];
 
 const genders = ['male', 'female', 'non-binary'];
@@ -36,10 +37,8 @@ exports.createPages = ({ graphql, actions }) => {
           reject(result.errors);
         }
 
-        years.forEach((fromYear, idx) => {
-          const toYear = years[idx + 1]
-            ? years[idx + 1] - 1
-            : new Date().getFullYear();
+        years.slice(0, years.length - 1).forEach((fromYear, idx) => {
+          const toYear = years[idx + 1] - 1;
           createPage({
             path: `/years/${fromYear}-${toYear}/`,
             component: indexPage,

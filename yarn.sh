@@ -1,0 +1,3 @@
+#!/bin/sh
+
+node ./.yarn/releases/yarn-1.22.22.js "$@"
