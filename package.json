@@ -30,7 +30,7 @@
     "react-dom": "^16.12.0",
     "react-helmet": "^6.0.0-beta",
     "react-yandex-maps": "^4.2.0",
-    "sharp": "^0.24.0",
+    "sharp": "^0.28.x",
     "styled-components": "^5.0.0"
   },
   "devDependencies": {
@@ -59,7 +59,7 @@
   "license": "MIT",
   "main": "n/a",
   "engines": {
-    "node": "12.x",
+    "node": "20.x",
     "yarn": "1.x"
   },
   "repository": {
@@ -70,12 +70,15 @@
     "lint": "eslint --ext .js,.jsx --ignore-pattern public .",
     "test": "echo \"Error: no test specified\" && exit 1",
     "format": "prettier --single-quote --write 'src/**/*.js' 'src/**/*.md' 'bin/*.js'",
-    "build": "dotenv -e .env.development -- gatsby build",
-    "start": "dotenv -e .env.development -- gatsby develop",
+    "build": "NODE_OPTIONS=--openssl-legacy-provider dotenv -e .env.development -- gatsby build",
+    "start": "NODE_OPTIONS=--openssl-legacy-provider dotenv -e .env.development -- gatsby develop",
     "add-locale": "lingui add-locale",
     "extract-lang": "lingui extract",
     "compile-lang": "lingui compile",
     "export-data": "dotenv -e .env.development -- ./scripts/export.sh",
     "import-data": "dotenv -e .env.development -- ./scripts/import.sh"
+  },
+  "resolutions": {
+    "sharp": "^0.28.x"
   }
 }
